@@ -197,5 +197,5 @@ kubectl create ns transaction-event-api
 Next use Helm to deploy the chart
 
 ```
-helm install ./administration/transactioneventapi --namespace transaction-event-api --generate-name
+helm install ./administration/transactioneventapi --namespace management-ui --generate-name
 ```

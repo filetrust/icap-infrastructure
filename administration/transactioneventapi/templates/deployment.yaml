@@ -41,15 +41,7 @@ spec:
               path: /
               port: http
           {{- end }}
-          envFrom:
-          - configMapRef:
-              name: {{ template "transactioneventapi.fullname" . }}-configuration
           env:
-            - name: TransactionStoreConnectionStringCsv
-              valueFrom:
-                secretKeyRef:
-                  name: transactionstoresecret
-                  key: TransactionStoreConnectionStringCsv
             {{- $root := . }}
             {{- range $ref, $values := .Values.secrets }}
             {{- range $key, $value := $values }}
