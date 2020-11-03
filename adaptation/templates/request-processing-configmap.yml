@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: request-processing-config
+data:
+  appsettings.json: |-
+    {
+        "ContentManagementFlags": {
+            "ExcelContentManagement": {
+                "DynamicDataExchange": "Sanitise",
+                "EmbeddedFiles": "Sanitise",
+                "EmbeddedImages": "Sanitise",
+                "ExternalHyperlinks": "Sanitise",
+                "InternalHyperlinks": "Sanitise",
+                "Macros": "Sanitise",
+                "Metadata": "Sanitise",
+                "ReviewComments": "Sanitise"
+            },
+            "PdfContentManagement": {
+                "Acroform": "Sanitise",
+                "ActionsAll": "Sanitise",
+                "EmbeddedFiles": "Sanitise",
+                "EmbeddedImages": "Sanitise",
+                "ExternalHyperlinks": "Sanitise",
+                "InternalHyperlinks": "Sanitise",
+                "Javascript": "Sanitise",
+                "Metadata": "Sanitise",
+                "Watermark": "Glasswall Processed"
+            },
+            "PowerPointContentManagement": {
+                "EmbeddedFiles": "Sanitise",
+                "EmbeddedImages": "Sanitise",
+                "ExternalHyperlinks": "Sanitise",
+                "InternalHyperlinks": "Sanitise",
+                "Macros": "Sanitise",
+                "Metadata": "Sanitise",
+                "ReviewComments": "Sanitise"
+            },
+            "WordContentManagement": {
+                "DynamicDataExchange": "Sanitise",
+                "EmbeddedFiles": "Sanitise",
+                "EmbeddedImages": "Sanitise",
+                "ExternalHyperlinks": "Sanitise",
+                "InternalHyperlinks": "Sanitise",
+                "Macros": "Sanitise",
+                "Metadata": "Sanitise",
+                "ReviewComments": "Sanitise"
+            }
+        }
+    }
