@@ -1,0 +1,29 @@
+
+metadataName: "autoscaler"
+appLabel: "cluster-autoscaler"
+
+vmssClusterTag: "skillsettag"
+
+serviceAccountName: "cluster-autoscaler"
+
+azureSecrets:
+  clientId: "<<CHANGEME!>>"
+  clientSecret: "<<CHANGEME!>>"
+  resourceGroup: "<<CHANGEME!>>"
+  subscriptionId: "<<CHANGEME!>>"
+  tenantId: "<<CHANGEME!>>"
+
+replicaCount: 1
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 300Mi
+  limits:
+    cpu: 100m
+    memory: 300Mi
+
+
+image:
+  registry: "k8s.gcr.io/autoscaling"
+  tag: "v1.19.1"
