@@ -2,21 +2,21 @@ apiVersion: v1
 kind: ReplicationController
 metadata:
   labels:
-    component: rabbitmq
-  name: rabbitmq-controller
+    component: {{ .Values.rabbitmqController.image }}
+  name: {{ .Value.rabbitmqController.name }}
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: taskQueue
-        component: rabbitmq
+        app: {{ .Values.rabbitmqController.app }}
+        component: {{ .Values.rabbitmqController.image }}
     spec:
       containers:
-      - image: rabbitmq
-        name: rabbitmq
+      - image: {{ .Values.rabbitmqController.image }}
+        name: {{ .Values.rabbitmqController.image }}
         ports:
-        - containerPort: 5672
+        - containerPort: {{ .Values.rabbitmqController.port }}
         resources:
           limits:
-            cpu: 100m
+            cpu: {{ .Values.rabbitmqController.cpu }}

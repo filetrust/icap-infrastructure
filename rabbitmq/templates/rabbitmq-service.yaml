@@ -2,11 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    component: rabbitmq
-  name: rabbitmq-service
+    component: {{ .Values.rabbitmqService.component }}
+  name: {{ .Values.rabbitmqService.name }}
 spec:
   ports:
-  - port: 5672
+  - port: {{ .Values.rabbitmqService.port }}
   selector:
-    app: taskQueue
-    component: rabbitmq
+    app: {{ .Values.rabbitmqService.app }}
+    component: {{ .Values.rabbitmqService.component }}
