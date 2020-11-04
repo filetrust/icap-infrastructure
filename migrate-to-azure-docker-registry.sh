@@ -17,7 +17,7 @@ find * -prune -type d | while IFS= read -r d; do
 
     helm template . | grep -i "image:" | while read -r line; do
       sed -e "s/image: //" -e "s/baseImage: //" | while read -r line; do
-        echo "Image url is $line"
+        echo "Docker registry url is $line"
         docker pull $line;
       done
     done
