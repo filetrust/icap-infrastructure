@@ -1,0 +1,4 @@
+environment:
+deployment:
+  name: rabbitmq-service
+  port: "\"5672\""
