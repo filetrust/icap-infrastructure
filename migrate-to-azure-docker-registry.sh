@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 loginToAcr () {
   accessToken=$(az acr login --name gwicapcontainerregistry --expose-token | jq -r '.accessToken')
@@ -23,13 +23,31 @@ find * -prune -type d | while IFS= read -r d; do
         done
 
         printf "\n\nDocker registry url is $line"
-        docker pull $line;
+        printf "\n"
+        echo "Docker registry url is $line"
+        printf "\n"
+        docker pull $line
 
-        line=${line#*"/"}
-        printf "\n\nImage url is $line"
 
-        docker tag $line gwicapcontainerregistry.azurecr.io/$line
-        docker push gwicapcontainerregistry.azurecr.io/$line
+        IFS="/" read -a myarray <<< $line
+        domain=${myarray[0]}
+        newImageUrl=0
+
+        if [[ $domain == *"."* ]]; then
+          echo "It's a domain"
+          newImageUrl=${line#${domain}}
+          echo "New image url: ${newImageUrl}"
+          newImageUrl=${newImageUrl#"/"}
+          echo "New image url without start slash: ${newImageUrl}"
+        else
+          echo "Not a domain"
+          newImageUrl=$line
+          echo "New image url: ${newImageUrl}"
+        fi
+        printf "\n\nImage url is $newImageUrl"
+
+        docker tag $line gwicapcontainerregistry.azurecr.io/$newImageUrl
+        docker push gwicapcontainerregistry.azurecr.io/$newImageUrl
 
         printf "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n"
       done
