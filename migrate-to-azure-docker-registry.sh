@@ -10,22 +10,29 @@ loginToAcr
 shopt -s dotglob
 
 find * -prune -type d | while IFS= read -r d; do
-    echo "$d"
+    printf "\nCurrent directory is: $d\n\n"
     cd $d
 
     helm template . | grep -i "image:" | while read -r line; do
-      sed -e "s/image: //" -e "s/baseImage: //" | while read -r line; do
+        line=${line#"image: "}
+        line=${line#"- image: "}
+        line=${line#"baseImage: "}
+
         while [[ $line == *'"'* ]]; do
-          line=${line#*'"'}; line=${line%'"'*};
+            line=${line#*'"'}; line=${line%'"'*};
         done
 
-        echo "\n\nDocker registry url is $line"
+        printf "\n\nDocker registry url is $line"
         docker pull $line;
+
+        line=${line#*"/"}
+        printf "\n\nImage url is $line"
+
         docker tag $line gwicapcontainerregistry.azurecr.io/$line
         docker push gwicapcontainerregistry.azurecr.io/$line
-        echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n"
+
+        printf "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n"
       done
-    done
 
     cd ..
 done
