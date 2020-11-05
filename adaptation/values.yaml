@@ -3,7 +3,7 @@ serviceAccount:
   adaptationname: adaptation-service-sa
   janitorname: pod-janitor-sa
 volumemountpath:
-  source: "/mnt/azure"
+  source: "/var/azure"
   target: "/mnt/azure"
 queue:
   host:

@@ -1,12 +1,12 @@
 environment:
 rabbitmqService:
   name: rabbitmq-service
-  port: "\"5672\""
+  port: 5672
   component: rabbitmq
   app: taskQueue
 rabbitmqController:
   name: rabbitmq-controller
-  port: "\"5672\""
+  port: 5672
   cpu: 100m
   image: rabbitmq
   app: taskQueue
