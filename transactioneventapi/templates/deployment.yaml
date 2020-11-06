@@ -42,6 +42,13 @@ spec:
               port: http
           {{- end }}
           env:
+            - name: ShareName
+              value: transactions
+            - name: TransactionStoreConnectionStringCsv
+              valueFrom:
+                secretKeyRef:
+                  name: transactionstoresecret
+                  key: TransactionStoreConnectionStringCsv
             {{- $root := . }}
             {{- range $ref, $values := .Values.secrets }}
             {{- range $key, $value := $values }}
