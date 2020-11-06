@@ -20,7 +20,7 @@ spec:
           serviceAccountName: {{ .Values.serviceAccount.janitorname }}
           containers:
           - name: pod-janitor
-            image: {{ .Values.imagestore.podjanitor.repository }}:{{ .Values.imagestore.podjanitor.tag }}
+            image: {{ .Values.imagestore.podjanitor.registry }}{{ .Values.imagestore.podjanitor.repository }}:{{ .Values.imagestore.podjanitor.tag }}
             args:
             - --pod-namespace={{ .Values.podjanitor.namespace }}
             - --delete-successful-after={{ .Values.podjanitor.deleteSuccessfulAfter }}
@@ -32,4 +32,4 @@ spec:
               requests:
                 cpu: 10m
                 memory: 10Mi
-          restartPolicy: OnFailure 
+          restartPolicy: OnFailure

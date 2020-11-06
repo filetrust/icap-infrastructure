@@ -12,11 +12,11 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.icapservice.applabel }}     
+        app: {{ .Values.icapservice.applabel }}
     spec:
-      containers:     
+      containers:
         - name: mvp-icap-service
-          image: {{ .Values.imagestore.icapservice.repository }}:{{ .Values.imagestore.icapservice.tag }}
+          image: {{ .Values.imagestore.icapservice.registry}}{{ .Values.imagestore.icapservice.repository }}:{{ .Values.imagestore.icapservice.tag }}
           ports:
             - containerPort: 1344
             - containerPort: 1345

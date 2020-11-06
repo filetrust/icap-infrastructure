@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
+metadata:
   name: {{ .Values.eventsubmissionservice.name }}
 spec:
   replicas: {{ .Values.eventsubmissionservice.replicas }}
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: event-submission-service
-        image: {{ .Values.imagestore.eventsubmission.repository }}:{{ .Values.imagestore.eventsubmission.tag }}
+        image: {{ .Values.imagestore.eventsubmission.registry}}{{ .Values.imagestore.eventsubmission.repository }}:{{ .Values.imagestore.eventsubmission.tag }}
         env:
         - name: AMQP_URL
           value: {{ .Values.eventsubmissionservice.amqpurl }}

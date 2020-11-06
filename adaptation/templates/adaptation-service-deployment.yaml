@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
+metadata:
   name: {{ .Values.adaptationservice.name }}
 spec:
   replicas: {{ .Values.adaptationservice.replicas }}
@@ -15,7 +15,7 @@ spec:
       serviceAccountName: {{ .Values.serviceAccount.adaptationname  }}
       containers:
       - name: adaptation-service
-        image: {{ .Values.imagestore.adaptationservice.repository }}:{{ .Values.imagestore.adaptationservice.tag }}
+        image: {{ .Values.imagestore.adaptationservice.registry}}{{ .Values.imagestore.adaptationservice.repository }}:{{ .Values.imagestore.adaptationservice.tag }}
         env:
         - name: POD_NAMESPACE
           valueFrom:
@@ -28,7 +28,7 @@ spec:
         - name: OUTPUT_MOUNT
           value: {{ .Values.volumemountpath.target }}
         - name: REQUEST_PROCESSING_IMAGE
-          value: {{ .Values.imagestore.requestprocessing.repository }}:{{ .Values.imagestore.requestprocessing.tag }}
+          value: {{ .Values.imagestore.requestprocessing.registry}}{{ .Values.imagestore.requestprocessing.repository }}:{{ .Values.imagestore.requestprocessing.tag }}
         resources:
           limits:
             cpu: 1
