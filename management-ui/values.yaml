@@ -7,5 +7,6 @@ service:
   port: 80
 imagestore:
   icapmanagementui:
+    registry: ""
     repository: glasswallsolutions/icap-management-ui
     tag: main-latest

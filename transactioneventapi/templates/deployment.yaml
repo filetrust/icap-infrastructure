@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.imagestore.transactioneventapi.repository }}:{{ .Values.imagestore.transactioneventapi.tag }}"
+          image: "{{ .Values.imagestore.transactioneventapi.registry }}{{ .Values.imagestore.transactioneventapi.repository }}:{{ .Values.imagestore.transactioneventapi.tag }}"
           ports:
             - name: http
               containerPort: {{ .Values.deployment.containerPort }}

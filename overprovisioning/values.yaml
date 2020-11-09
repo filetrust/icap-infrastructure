@@ -10,7 +10,8 @@ resources:
     memory: 20Mi
 
 image:
-  registry: "registry.hub.docker.com/library"
+  registry: "registry.hub.docker.com/"
+  repository: "library"
   tag: "latest"
 
 priorityClassName: "ballast"

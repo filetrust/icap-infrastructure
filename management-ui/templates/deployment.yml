@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: icap-management-ui
-          image: {{ .Values.imagestore.icapmanagementui.repository }}:{{ .Values.imagestore.icapmanagementui.tag }}
+          image: {{ .Values.imagestore.icapmanagementui.registry }}{{ .Values.imagestore.icapmanagementui.repository }}:{{ .Values.imagestore.icapmanagementui.tag }}
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: {{ .Values.deployment.port }}

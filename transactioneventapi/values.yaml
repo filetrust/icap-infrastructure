@@ -52,7 +52,7 @@ resources: {}
   #  cpu: 100m
   #  memory: 128Mi
   # requests:
-  #  cpu: 100m 
+  #  cpu: 100m
   #  memory: 128Mi
 nodeSelector: {}
 
@@ -61,5 +61,6 @@ tolerations: []
 affinity: {}
 imagestore:
   transactioneventapi:
+    registry: ""
     repository: glasswallsolutions/transactioneventapi
     tag: main-a9fa630
