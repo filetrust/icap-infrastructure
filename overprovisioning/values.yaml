@@ -12,7 +12,7 @@ resources:
 imagestore:
   busybox:
     registry: ""
-    repository: /library/busybox
+    repository: library/busybox
     tag: latest
 
 priorityClassName: "ballast"

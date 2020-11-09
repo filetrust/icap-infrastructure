@@ -12,12 +12,12 @@ replicaCount: 1
 
 imageStore:
   ingressController:
-    registry: "quay.io"
-    repository: "/kubernetes-ingress-controller/nginx-ingress-controller"
+    registry: "quay.io/"
+    repository: "kubernetes-ingress-controller/nginx-ingress-controller"
     tag: "0.26.1"
   defaultBackend:
-    registry: "gcr.io"
-    repository: "/google_containers"
+    registry: "gcr.io/"
+    repository: "google_containers"
     tag: "1.0"
 
 container:
