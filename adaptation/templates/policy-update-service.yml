@@ -26,3 +26,13 @@ spec:
           value: "{{ .Values.policyupdateservice.port }}"
         - name: CONFIGMAP_NAME
           value: {{ .Values.requestprocessingservice.configmapname }}
+        - name: USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: policyupdateservicesecret
+              key: username
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: policyupdateservicesecret
+              key: password 
