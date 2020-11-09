@@ -39,7 +39,7 @@ spec:
                 topologyKey: kubernetes.io/hostname
       terminationGracePeriodSeconds: 30
       containers:
-        - image: "{{.Values.image.ingressController.registry}}/nginx-ingress-controller:{{.Values.image.ingressController.tag}}"
+        - image: "{{.Values.imageStore.ingressController.registry}}{{.Values.imageStore.ingressController.repository}}:{{.Values.imageStore.ingressController.tag}}"
           name: {{.Values.metadataName}}
           readinessProbe:
             httpGet:

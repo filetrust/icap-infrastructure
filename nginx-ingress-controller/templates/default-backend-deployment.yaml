@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: default-backend
-          image: "{{.Values.image.defaultBackend.registry}}{{.Values.image.defaultBackend.repository}}:{{.Values.image.defaultBackend.tag}}"
+          image: "{{.Values.imageStore.defaultBackend.registry}}{{.Values.imageStore.defaultBackend.repository}}:{{.Values.imageStore.defaultBackend.tag}}"
           livenessProbe:
             httpGet:
               path: /healthz

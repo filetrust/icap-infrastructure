@@ -9,9 +9,10 @@ resources:
     cpu: 500m
     memory: 20Mi
 
-image:
-  registry: "registry.hub.docker.com/"
-  repository: "library"
-  tag: "latest"
+imagestore:
+  busybox:
+    registry: ""
+    repository: /library/busybox
+    tag: latest
 
 priorityClassName: "ballast"

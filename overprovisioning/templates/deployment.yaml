@@ -15,7 +15,7 @@ spec:
         app: {{.Values.appLabel}}
     spec:
       containers:
-        - image: "{{.Values.image.registry}}{{.Values.image.repository}}/busybox:{{.Values.image.tag}}"
+        - image: "{{ .Values.imagestore.busybox.registry }}{{ .Values.imagestore.busybox.repository }}:{{ .Values.imagestore.busybox.tag }}"
           name: {{.Values.metadataName}}
           command:
             - sleep
