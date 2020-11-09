@@ -31,11 +31,11 @@ spec:
   apiserverConfig:
 {{ toYaml .Values.prometheus.prometheusSpec.apiserverConfig | indent 4}}
 {{- end }}
-{{- if .Values.prometheus.prometheusSpec.image }}
-  baseImage: {{ .Values.prometheus.prometheusSpec.image.registry }}{{ .Values.prometheus.prometheusSpec.image.repository }}
-  version: {{ .Values.prometheus.prometheusSpec.image.tag }}
-  {{- if .Values.prometheus.prometheusSpec.image.sha }}
-  sha: {{ .Values.prometheus.prometheusSpec.image.sha }}
+{{- if .Values.imagestore.prometheus }}
+  baseImage: {{ .Values.imagestore.prometheus.registry }}{{ .Values.imagestore.prometheus.repository }}
+  version: {{ .Values.imagestore.prometheus.tag }}
+  {{- if .Values.imagestore.prometheus.sha }}
+  sha: {{ .Values.imagestore.prometheus.sha }}
   {{- end }}
 {{- end }}
 {{- if .Values.prometheus.prometheusSpec.externalLabels }}

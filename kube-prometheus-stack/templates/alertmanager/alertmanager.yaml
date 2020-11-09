@@ -8,11 +8,11 @@ metadata:
     app: {{ template "kube-prometheus-stack.name" . }}-alertmanager
 {{ include "kube-prometheus-stack.labels" . | indent 4 }}
 spec:
-{{- if .Values.alertmanager.alertmanagerSpec.image }}
-  baseImage: {{ .Values.alertmanager.alertmanagerSpec.image.registry }}{{ .Values.alertmanager.alertmanagerSpec.image.repository }}
-  version: {{ .Values.alertmanager.alertmanagerSpec.image.tag }}
-  {{- if .Values.alertmanager.alertmanagerSpec.image.sha }}
-  sha: {{ .Values.alertmanager.alertmanagerSpec.image.sha }}
+{{- if .Values.imagestore.alertmanager }}
+  baseImage: {{ .Values.imagestore.alertmanager.registry }}{{ .Values.imagestore.alertmanager.repository }}
+  version: {{ .Values.imagestore.alertmanager.tag }}
+  {{- if .Values.imagestore.alertmanager.sha }}
+  sha: {{ .Values.imagestore.alertmanager.sha }}
   {{- end }}
 {{- end }}
   replicas: {{ .Values.alertmanager.alertmanagerSpec.replicas }}
