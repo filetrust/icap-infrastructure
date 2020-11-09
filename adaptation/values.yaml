@@ -70,4 +70,8 @@ imagestore:
   policyupdate:
     repository: glasswallsolutions/policy-update-service
     tag: develop-20f889d
+secrets:
+  transactionstore:
+    accountName: <<replace_with_base64_value_of_azure_secret_value_with_account_name>>
+    accountKey: <<replace_with_base64_value_of_azure_secret_value_with_account_key>>
 
