@@ -22,4 +22,6 @@ spec:
             - infinity
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      imagePullSecrets:
+        - name: registrycredential
       priorityClassName: {{ .Values.priorityClassName }}

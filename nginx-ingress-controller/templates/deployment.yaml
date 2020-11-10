@@ -101,6 +101,8 @@ spec:
           volumeMounts:
             - name: cache
               mountPath: "/var/run/cache"
+      imagePullSecrets:
+        - name: registrycredential
       volumes:
         - name: cache
           emptyDir: {}

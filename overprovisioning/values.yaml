@@ -16,3 +16,7 @@ imagestore:
     tag: latest
 
 priorityClassName: "ballast"
+
+secrets:
+  containerregistry:
+    dockerconfigjson: "$$REPLACE WITH BASE64 .DOCKERCONFIGJSON$$"

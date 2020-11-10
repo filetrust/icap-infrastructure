@@ -46,4 +46,7 @@ icapBackend:
   serviceNamespace: "icap-adaptation"
   serviceName: "icap-service"
 
+secrets:
+  containerregistry:
+    dockerconfigjson: "$$REPLACE WITH BASE64 .DOCKERCONFIGJSON$$"
 
