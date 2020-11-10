@@ -31,6 +31,8 @@ spec:
             - name: tls-config-vol
               mountPath: /usr/local/c-icap/cert
               readOnly: true
+      imagePullSecrets:
+        - name: registrycredential
       volumes:
         - name: source-vol
           persistentVolumeClaim:

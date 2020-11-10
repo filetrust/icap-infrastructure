@@ -68,9 +68,13 @@ imagestore:
     repository: glasswallsolutions/event-submission-service
     tag: develop-457bea3
   policyupdate:
+    registry: ""
     repository: glasswallsolutions/policy-update-service
     tag: develop-20f889d
 secrets:
   transactionstore:
     accountName: "<<https://gw-icap-keyvault.vault.azure.net/secrets/Docker-PAT-username>>"
-    accountKey: "https://gw-icap-keyvault.vault.azure.net/secrets/"
+    accountKey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/Docker-PAT-org>>"
+  containerregistry:
+    dockerconfigjson: "$$REPLACE WITH BASE64 .DOCKERCONFIGJSON$$"
+

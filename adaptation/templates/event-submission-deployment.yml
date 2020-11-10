@@ -13,18 +13,20 @@ spec:
         app: {{ .Values.eventsubmissionservice.name }}
     spec:
       containers:
-      - name: event-submission-service
-        image: {{ .Values.imagestore.eventsubmission.registry}}{{ .Values.imagestore.eventsubmission.repository }}:{{ .Values.imagestore.eventsubmission.tag }}
-        env:
-        - name: AMQP_URL
-          value: {{ .Values.eventsubmissionservice.amqpurl }}
-        - name: ACCOUNT_NAME
-          valueFrom:
-            secretKeyRef:
-              name: transactionstoresecret
-              key: accountName
-        - name: ACCOUNT_KEY
-          valueFrom:
-            secretKeyRef:
-              name: transactionstoresecret
-              key: accountKey
+        - name: event-submission-service
+          image: {{ .Values.imagestore.eventsubmission.registry}}{{ .Values.imagestore.eventsubmission.repository }}:{{ .Values.imagestore.eventsubmission.tag }}
+          env:
+          - name: AMQP_URL
+            value: {{ .Values.eventsubmissionservice.amqpurl }}
+          - name: ACCOUNT_NAME
+            valueFrom:
+              secretKeyRef:
+                name: transactionstoresecret
+                key: accountName
+          - name: ACCOUNT_KEY
+            valueFrom:
+              secretKeyRef:
+                name: transactionstoresecret
+                key: accountKey
+      imagePullSecrets:
+        - name: registrycredential

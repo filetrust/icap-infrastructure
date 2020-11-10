@@ -14,25 +14,27 @@ spec:
     spec:
       serviceAccountName: {{ .Values.serviceAccount.adaptationname  }}
       containers:
-      - name: adaptation-service
-        image: {{ .Values.imagestore.adaptationservice.registry}}{{ .Values.imagestore.adaptationservice.repository }}:{{ .Values.imagestore.adaptationservice.tag }}
-        env:
-        - name: POD_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        - name: AMQP_URL
-          value: {{ .Values.adaptationservice.amqpurl }}
-        - name: INPUT_MOUNT
-          value: {{ .Values.volumemountpath.source }}
-        - name: OUTPUT_MOUNT
-          value: {{ .Values.volumemountpath.target }}
-        - name: REQUEST_PROCESSING_IMAGE
-          value: {{ .Values.imagestore.requestprocessing.registry}}{{ .Values.imagestore.requestprocessing.repository }}:{{ .Values.imagestore.requestprocessing.tag }}
-        resources:
-          limits:
-            cpu: 1
-            memory: 500Mi
-          requests:
-            cpu: 0.5
-            memory: 100Mi
+        - name: adaptation-service
+          image: {{ .Values.imagestore.adaptationservice.registry}}{{ .Values.imagestore.adaptationservice.repository }}:{{ .Values.imagestore.adaptationservice.tag }}
+          env:
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: AMQP_URL
+            value: {{ .Values.adaptationservice.amqpurl }}
+          - name: INPUT_MOUNT
+            value: {{ .Values.volumemountpath.source }}
+          - name: OUTPUT_MOUNT
+            value: {{ .Values.volumemountpath.target }}
+          - name: REQUEST_PROCESSING_IMAGE
+            value: {{ .Values.imagestore.requestprocessing.registry}}{{ .Values.imagestore.requestprocessing.repository }}:{{ .Values.imagestore.requestprocessing.tag }}
+          resources:
+            limits:
+              cpu: 1
+              memory: 500Mi
+            requests:
+              cpu: 0.5
+              memory: 100Mi
+      imagePullSecrets:
+        - name: registrycredential
