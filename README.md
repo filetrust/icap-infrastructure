@@ -2,6 +2,32 @@
 
 Each of the cluster types that form the Glasswall ICAP System are defined through the Helm charts in the subfolders.
 
+## How to structure values.yaml in a Helm Chart
+We've written a script (migrate-to-azure-docker-registry.sh) which migrates all our docker images to a private azure container registry.
+The script expects us to define our docker image registry, repo and tag in values.yaml file in the following structure:
+E.g of a busybox docker image:
+ ```
+imagestore:
+  busybox:
+    registry: ""
+    repository: library/busybox
+    tag: latest
+ ```
+
+We've also written another script called update-secrets.sh [https://github.com/filetrust/rancher-git-server] which dynamically replaces all secret values with values from azure vault.
+This script expects us to define our secret key, value pairs in values.yaml in the following format:
+
+ ```
+secrets:
+  transactionstore:
+    accountName: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountName>>"
+    accountKey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountKey>>"
+ ```
+
+The url refers to a key on azure key vault secrets. 
+The script looks up for the string "<<http url link to azure key vault secret>>" and replaces it with secret key value. 
+
+
 ### Adaptation Cluster
 Deploying to local cluster (Docker Desktop).
 
