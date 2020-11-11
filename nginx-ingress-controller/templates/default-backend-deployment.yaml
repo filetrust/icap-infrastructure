@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-ingress-default-backend
-  namespace: nginx
   labels:
     app: {{.Values.appLabel}}
     {{- toYaml .Values.addLabels.defaultBackend | nindent 4 }}
