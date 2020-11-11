@@ -12,5 +12,5 @@ imagestore:
     tag: main-latest
 secrets:
   containerregistry:
-    dockerconfigjson: "$$REPLACE WITH BASE64 .DOCKERCONFIGJSON$$"
+    dockerconfigjson: "##REPLACE-WITH-BASE64-DOCKERCONFIGJSON##"
 
