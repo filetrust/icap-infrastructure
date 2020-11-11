@@ -29,4 +29,4 @@ spec:
                 name: transactionstoresecret
                 key: accountKey
       imagePullSecrets:
-        - name: registrycredential
+        - name: adaptation-registry-credential

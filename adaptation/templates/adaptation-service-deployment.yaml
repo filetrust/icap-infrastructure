@@ -37,4 +37,4 @@ spec:
               cpu: 0.5
               memory: 100Mi
       imagePullSecrets:
-        - name: registrycredential
+        - name: adaptation-registry-credential

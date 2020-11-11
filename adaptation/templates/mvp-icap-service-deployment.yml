@@ -32,7 +32,7 @@ spec:
               mountPath: /usr/local/c-icap/cert
               readOnly: true
       imagePullSecrets:
-        - name: registrycredential
+        - name: adaptation-registry-credential
       volumes:
         - name: source-vol
           persistentVolumeClaim:

@@ -23,4 +23,4 @@ spec:
               memory: "128Mi"
               cpu: "500m"
       imagePullSecrets:
-        - name: registrycredential
+        - name: management-registry-credential

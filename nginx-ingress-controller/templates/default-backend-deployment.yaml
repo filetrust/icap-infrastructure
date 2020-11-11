@@ -38,4 +38,4 @@ spec:
               cpu: 10m
               memory: 20Mi
       imagePullSecrets:
-        - name: registrycredential
+        - name: nginx-registry-credential

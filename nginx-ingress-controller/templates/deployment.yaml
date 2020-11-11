@@ -102,7 +102,7 @@ spec:
             - name: cache
               mountPath: "/var/run/cache"
       imagePullSecrets:
-        - name: registrycredential
+        - name: nginx-registry-credential
       volumes:
         - name: cache
           emptyDir: {}

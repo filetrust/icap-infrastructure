@@ -23,5 +23,5 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       imagePullSecrets:
-        - name: registrycredential
+        - name: overprovisioning-registry-credential
       priorityClassName: {{ .Values.priorityClassName }}

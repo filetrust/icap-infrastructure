@@ -48,5 +48,5 @@ icapBackend:
 
 secrets:
   containerregistry:
-    dockerconfigjson: "##REPLACE-WITH-BASE64-DOCKERCONFIGJSON##"
+    dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
 
