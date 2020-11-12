@@ -3,7 +3,7 @@ kind: ReplicationController
 metadata:
   labels:
     component: {{ .Values.rabbitmqController.image }}
-  name: {{ .Values.rabbitmqController.name }}
+  name: {{ .Values.metadataName }}
 spec:
   replicas: 1
   template:

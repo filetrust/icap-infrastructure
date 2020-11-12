@@ -1,3 +1,4 @@
+metadataName: "rabbitmq-controller"
 environment:
 rabbitmqService:
   name: rabbitmq-service
