@@ -13,10 +13,12 @@ spec:
         component: {{ .Values.rabbitmqController.image }}
     spec:
       containers:
-      - image: {{ .Values.rabbitmqController.image }}
+      - image: "{{ .Values.imagestore.rabbitmq.registry }}{{ .Values.imagestore.rabbitmq.repository }}:{{ .Values.imagestore.rabbitmq.tag }}"
         name: {{ .Values.rabbitmqController.image }}
         ports:
         - containerPort: {{ .Values.rabbitmqController.port }}
         resources:
           limits:
             cpu: {{ .Values.rabbitmqController.cpu }}
+      imagePullSecrets:
+        - name: rabbitmq-registry-credential

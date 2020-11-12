@@ -8,5 +8,12 @@ rabbitmqController:
   name: rabbitmq-controller
   port: 5672
   cpu: 100m
-  image: rabbitmq
   app: taskQueue
+imagestore:
+  rabbitmq:
+    registry: ""
+    repository: rabbitmq
+    tag: latest
+secrets:
+  containerregistry:
+    dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
