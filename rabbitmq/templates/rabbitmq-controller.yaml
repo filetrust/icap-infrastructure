@@ -2,19 +2,19 @@ apiVersion: v1
 kind: ReplicationController
 metadata:
   labels:
-    component: {{ .Values.metadataName }}
-  name: {{ .Values.metadataName }}
+    component: rabbitmq-controller
+  name: rabbitmq-controller
 spec:
   replicas: 1
   template:
     metadata:
       labels:
         app: {{ .Values.rabbitmqController.app }}
-        component: {{ .Values.metadataName }}
+        component: rabbitmq-controller
     spec:
       containers:
       - image: "{{ .Values.imagestore.rabbitmq.registry }}{{ .Values.imagestore.rabbitmq.repository }}:{{ .Values.imagestore.rabbitmq.tag }}"
-        name: {{ .Values.metadataName }}
+        name: rabbitmq-controller
         ports:
         - containerPort: {{ .Values.rabbitmqController.port }}
         resources:
