@@ -28,9 +28,13 @@ spec:
             - --logtostderr=true
             - --cloud-provider=azure
             - --skip-nodes-with-local-storage=false
-            - --node-group-auto-discovery=label:cluster-autoscaler-enabled=true,cluster-autoscaler-name={{.Values.vmssClusterTag}}
-            # FIXME: cluster-autoscaler-name needs to be discovered
+            - --node-group-auto-discovery=label:cluster-autoscaler-enabled=true,cluster-autoscaler-name=$CLUSTERNAME
           env:
+            - name: CLUSTERNAME
+              valueFrom:
+                configmapKeyRef:
+                  name: cluster-autoscaler-clustername
+                  key: clustername
             - name: ARM_SUBSCRIPTION_ID
               valueFrom:
                 secretKeyRef:

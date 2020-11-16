@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{.Values.metadataName}}-configmaker
+spec:
+  template:
+    spec:
+      serviceAccountName: {{.Values.serviceAccountName}}
+      containers:
+      - image: bskim45/helm-kubectl-jq:3.3.4
+        name: {{.Values.metadataName}}-configmaker
+        command: [ "/bin/bash"  ]
+        args: 
+        - "-c"
+        - |
+          kubectl create configmap clusternamemap --from-literal=clustername=$(kubectl get node kind-control-plane -o json | jq -r '.metadata.labels["k8s.io/cluster-name"]');
+      restartPolicy: OnFailure
