@@ -57,7 +57,7 @@ imagestore:
     tag: develop-e346546
   podjanitor:
     registry: ""
-    repository: glasswallsolutionsAMQP_URL/pod-janitor
+    repository: glasswallsolutions/pod-janitor
     tag: main-5ce5e69
   icapservice:
     registry: ""
