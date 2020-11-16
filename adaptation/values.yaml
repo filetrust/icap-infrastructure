@@ -80,3 +80,6 @@ secrets:
   policyupdateservice:
     username: "<<https://gw-icap-keyvault.vault.azure.net/secrets/policyUpdateUsername>>"
     password: "<<https://gw-icap-keyvault.vault.azure.net/secrets/policyUpdatePassword>>"
+  mvpicapservice:
+    tlsKey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/mvpicapserviceTlsKey>>"
+    tlsCert: "<<https://gw-icap-keyvault.vault.azure.net/secrets/mvpicapserviceTlsCert>>"
