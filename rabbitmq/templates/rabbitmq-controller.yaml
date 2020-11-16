@@ -9,8 +9,8 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.rabbitmqController.app }}
-        component: rabbitmq-controller
+        app: {{ .Values.rabbitmqService.app }}
+        component: {{.Values.rabbitmqService.component}}
     spec:
       containers:
       - image: "{{ .Values.imagestore.rabbitmq.registry }}{{ .Values.imagestore.rabbitmq.repository }}:{{ .Values.imagestore.rabbitmq.tag }}"

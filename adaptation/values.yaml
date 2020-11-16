@@ -20,7 +20,7 @@ adaptationservice:
   name: adaptation-service
   namespace: icap-adaptation
   replicas: 1
-  amqpurl: "amqp://guest:guest@rabbitmq-service:5672/"
+  amqpurl: "amqp://guest:guest@rabbitmq-service.icap-rabbitmq.svc.cluster.local:5672/"
   rolename: adaptation-service-role
 icapservice:
   name: mvp-icap-service
@@ -39,7 +39,7 @@ podjanitor:
 eventsubmissionservice:
   name: event-submission-service
   replicas: 1
-  amqpurl: "amqp://guest:guest@rabbitmq-service:5672/"
+  amqpurl: "amqp://guest:guest@rabbitmq-service.icap-rabbitmq.svc.cluster.local:5672/"
 policyupdateservice:
   name: policy-update-service
   replicas: 1
@@ -57,7 +57,7 @@ imagestore:
     tag: develop-e346546
   podjanitor:
     registry: ""
-    repository: glasswallsolutions/pod-janitor
+    repository: glasswallsolutionsAMQP_URL/pod-janitor
     tag: main-5ce5e69
   icapservice:
     registry: ""
