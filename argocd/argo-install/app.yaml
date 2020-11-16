@@ -8,14 +8,14 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/filetrust/icap-infrastructure/tree/main
-    targetRevision: MAIN
+    repoURL: https://github.com/filetrust/icap-infrastructure
+    targetRevision: HEAD
     path: adaptation
     directory:
       recurse: true
   destination:
-    server: {{ .values.spec.destination.server }}
-    namespace: argocd
+    server: https://gw-icap-k8s-f17703a9.hcp.uksouth.azmk8s.io:443
+    namespace: icap-adaptation
   syncPolicy:
     automated:
       prune: false
