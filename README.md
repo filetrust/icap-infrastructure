@@ -2,6 +2,12 @@
 
 Each of the cluster types that form the Glasswall ICAP System are defined through the Helm charts in the subfolders.
 
+### ArgoCD 
+
+We are using ArgoCD to update the clusters that are currently deployed within AKS.
+
+For full details on how to install and use please see the [argocd folder]()
+
 ### Adaptation Cluster
 Deploying to local cluster (Docker Desktop).
 
