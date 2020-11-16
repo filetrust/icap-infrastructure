@@ -79,3 +79,4 @@ secrets:
     dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
   policyupdateservice:
     username: "<<https://gw-icap-keyvault.vault.azure.net/secrets/policyUpdateUsername>>"
+    password: "<<https://gw-icap-keyvault.vault.azure.net/secrets/policyUpdatePassword>>"
