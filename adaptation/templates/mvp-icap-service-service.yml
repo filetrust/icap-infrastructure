@@ -8,13 +8,14 @@ spec:
   type: NodePort
   selector:
     app: {{ .Values.icapservice.applabel }}
-    ports:
-  - name: openport
-    port: 1344
+  ports:
+  - port: 1344
     protocol: TCP
+    name: openport
     targetPort: 1344
-  - name: tlsport
-    nodePort: 32323
-    port: 1345
+  - port: 1345
     protocol: TCP
+    nodePort: 32323
+    name: tlsport
     targetPort: 1345
+
