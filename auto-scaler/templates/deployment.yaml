@@ -17,7 +17,7 @@ spec:
     spec:
       serviceAccountName: {{.Values.serviceAccountName}}
       containers:
-        - image: "{{.Values.image.registry}}/cluster-autoscaler:{{.Values.image.tag}}"
+        - image: {{ .Values.imagestore.autoscaler.registry}}{{ .Values.imagestore.autoscaler.repository }}:{{ .Values.imagestore.autoscaler.tag }}
           imagePullPolicy: Always
           name: cluster-autoscaler
           resources:
@@ -42,9 +42,9 @@ spec:
                   name: {{.Values.metadataName}}
             - name: ARM_RESOURCE_GROUP
               valueFrom:
-                secretKeyRef:
-                  key: ResourceGroup
-                  name: {{.Values.metadataName}}
+                configmapKeyRef:
+                  name: cluster-autoscaler-clustername
+                  key: resourcegroup
             - name: ARM_TENANT_ID
               valueFrom:
                 secretKeyRef:
@@ -67,6 +67,8 @@ spec:
               name: ssl-certs
               readOnly: true
       restartPolicy: Always
+      imagePullSecrets:
+        - name: autoscaler-registry-credential
       volumes:
         - hostPath:
             path: /etc/ssl/certs/ca-certificates.crt

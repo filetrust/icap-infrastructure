@@ -6,13 +6,6 @@ vmssClusterTag: "skillsettag"
 
 serviceAccountName: "cluster-autoscaler"
 
-azureSecrets:
-  clientId: "<<CHANGEME!>>"
-  clientSecret: "<<CHANGEME!>>"
-  resourceGroup: "<<CHANGEME!>>"
-  subscriptionId: "<<CHANGEME!>>"
-  tenantId: "<<CHANGEME!>>"
-
 replicaCount: 1
 
 resources:
@@ -24,6 +17,18 @@ resources:
     memory: 300Mi
 
 
-image:
-  registry: "k8s.gcr.io/autoscaling"
+imagestore:
+  autoscaler:
+  registry: "k8s.gcr.io/"
+  repository: "autoscaling"
   tag: "v1.19.1"
+
+secrets:
+  azureSecrets:
+    clientId: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-client-id>>"
+    clientSecret: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-client-secret>>"
+    subscriptionId: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-subscription-id>>"
+    tenantId: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-tenant-id>>"
+  containerregistry:
+    dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
+  
