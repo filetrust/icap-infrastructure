@@ -8,6 +8,7 @@ spec:
   type: NodePort
   selector:
     app: {{ .Values.icapservice.applabel }}
+  # The node port is hard coded to match the load balancer. In the future we want to be template it.
   ports:
   - port: 1344
     protocol: TCP
