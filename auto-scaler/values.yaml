@@ -19,9 +19,9 @@ resources:
 
 imagestore:
   autoscaler:
-  registry: "k8s.gcr.io/"
-  repository: "autoscaling"
-  tag: "v1.19.1"
+    registry: "k8s.gcr.io/"
+    repository: "autoscaling"
+    tag: "v1.19.1"
 
 secrets:
   azureSecrets:
