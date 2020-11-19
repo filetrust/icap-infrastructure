@@ -5,7 +5,6 @@ metadata:
   labels:
     app: {{ .Values.icapservice.applabel }}
 spec:
-  replicas: {{ .Values.icapservice.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.icapservice.applabel }}

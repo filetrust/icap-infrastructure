@@ -29,7 +29,9 @@ queue:
 adaptationservice:
   name: adaptation-service
   namespace: icap-adaptation
-  replicas: 1
+  replicas:
+    min: 1
+    max: 10
   amqpurl: "amqp://guest:guest@rabbitmq-service:5672/"
   rolename: adaptation-service-role
 archiveadaptationservice:
@@ -42,7 +44,9 @@ archiveadaptationservice:
 icapservice:
   name: mvp-icap-service
   applabel: adaptation
-  replicas: 1
+  replicas:
+    min: 1
+    max: 10
   port: 1344
   tlsport: 1345
 icapserviceconfig:
