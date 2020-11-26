@@ -1,9 +1,34 @@
 ## Guide to install and using ArgoCD
 
 ArgoCD can be used through your CLI or a GUI - it is currently set up to manually sync new changes from the "main" branches of all the repos that contain the charts for each service. 
+
 The future aim would be to have a "staging" environment and a "production" environment. Changes would be automatically deployed to "staging" as this would be a mirror copy of "production" - then if all was well with the upgrade on "staging" then we merge the changes to "main" branch, which is turn upgrades that cluster automatically too.
 
 ArgoCD is very easy to install and set up - if you want to get it working on your current machine, follow the details below. 
+
+## Table of contents
+
+- [Guide to install and using ArgoCD](#guide-to-install-and-using-argocd)
+- [Table of contents](#table-of-contents)
+  - [Install ArgoCD](#install-argocd)
+  - [Install ArgoCD CLI tool](#install-argocd-cli-tool)
+    - [Linux](#linux)
+    - [Mac](#mac)
+    - [Windows](#windows)
+  - [Accessing the Argo CD API Server](#accessing-the-argo-cd-api-server)
+  - [Login using CLI or GUI](#login-using-cli-or-gui)
+    - [CLI Login](#cli-login)
+    - [GUI Login](#gui-login)
+  - [Register a Cluster to Deploy apps to](#register-a-cluster-to-deploy-apps-to)
+  - [How to deploy using ArgoCD](#how-to-deploy-using-argocd)
+  - [Check status of ArgoCD apps](#check-status-of-argocd-apps)
+    - [Sync an ArgoCD app](#sync-an-argocd-app)
+  - [Commands to deploy all services using ArgoCD](#commands-to-deploy-all-services-using-argocd)
+  - [ArgoCD Cheat Sheet](#argocd-cheat-sheet)
+    - [Sync all apps](#sync-all-apps)
+    - [Delete all apps](#delete-all-apps)
+    - [Add context for easy switching between clusters](#add-context-for-easy-switching-between-clusters)
+
 
 ### Install ArgoCD
 
@@ -203,26 +228,51 @@ This will sync the new changes that have been merged into the "main" branch of t
 
 Adaptation service
 ```bash
-argocd app create adaptation-service-main --repo https://github.com/filetrust/icap-infrastructure --path adaptation --dest-server https://gw-icap-k8s-f17703a9.hcp.uksouth.azmk8s.io:443 --dest-namespace icap-adaptation --revision main
+argocd app create adaptation-service-main --repo https://github.com/filetrust/icap-infrastructure --path adaptation --dest-server <cluster url> --dest-namespace icap-adaptation --revision main
 ```
 
 Rabbitmq
 ```bash
-argocd app create rabbitmq-service-main --repo https://github.com/filetrust/icap-infrastructure --path rabbitmq --dest-server https://gw-icap-k8s-f17703a9.hcp.uksouth.azmk8s.io:443 --dest-namespace icap-adaptation --revision main
+argocd app create rabbitmq-service-main --repo https://github.com/filetrust/icap-infrastructure --path rabbitmq --dest-server <cluster url> --dest-namespace icap-adaptation --revision main
 ```
 
-Management-UI
+ICAP-Administration
 ```bash
-argocd app create management-ui-main --repo https://github.com/filetrust/icap-infrastructure --path management-ui --dest-server https://gw-icap-k8s-f17703a9.hcp.uksouth.azmk8s.io:443 --dest-namespace management-ui --revision main
-```
+ argocd app create icap-administration-main --repo https://github.com/filetrust/icap-infrastructure --path administration --dest-server <cluster url> --dest-namespace icap-administration --revision main
+ ```
 
-Transactions-Event-API
+### ArgoCD Cheat Sheet
+
+#### Sync all apps 
+
 ```bash
-argocd app create transaction-event-api-main --repo https://github.com/filetrust/icap-infrastructure --path transaction-event-api --dest-server https://gw-icap-k8s-f17703a9.hcp.uksouth.azmk8s.io:443 --dest-namespace transaction-event-api --revision main
+argocd app list -o name | xargs argocd app sync
 ```
 
-Policy-Management-API
-```bash
-argocd app create policy-management-api-main --repo https://github.com/filetrust/icap-infrastructure --path policy-management-api --dest-server https://gw-icap-k8s-f17703a9.hcp.uksouth.azmk8s.io:443 --dest-namespace policy-management-api --revision main
+#### Delete all apps
+
+```
+argocd app list -o name | xargs argocd app sync
 ```
 
+#### Add context for easy switching between clusters
+
+Firstly you will need to get the public IP address of the Argocd server
+
+```
+kubectl get svc -n argocd argocd-server
+```
+
+Then you can use the following command to login but it will also add it to the context as well
+
+```
+argocd login -n <name of cluster or context> <Argo Server IP or hostname>
+```
+Now when you run the following it will show output the contexts you can change too. 
+```
+argocd context
+CURRENT  NAME      SERVER
+         North-Eu  xxx.xxx.xxx.xxx
+         US-East   xxx.xxx.xxx.xxx
+*        UK-South  xxx.xxx.xxx.xxx
+```
