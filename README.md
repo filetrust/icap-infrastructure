@@ -210,6 +210,7 @@ Before running this script you need run the below command to create the TLS cert
 ```bash
 openssl req -newkey rsa:2048 -nodes -keyout tls.key -x509 -days 365 -out certificate.crt
 ```
+
 Next run the script:
 
 ```bash
@@ -217,6 +218,29 @@ Next run the script:
 ```
 
 Once this script has completed, we can move onto deploying the services to the cluster.
+
+***PLEASE NOTE***
+
+You will need to return to this script after deploying the services to the Cluster. This is to add the secret for the Rabbitmq Admin Credentials, as these are not created until the RabbitMQ Cluster service is up and running. Follow the details below:
+
+```bash
+export RABBITMQ_ADMIN_USERNAME=$(kubectl -n icap-adaptation get secret rabbitmq-service-default-user -o jsonpath="{.data.username}" | base64 --decode)
+
+export RABBITMQ_ADMIN_PASSWORD=$(kubectl -n icap-adaptation get secret rabbitmq-service-default-user -o jsonpath="{.data.password}" | base64 --decode)
+
+export VAULT_NAME=<vault name>
+
+export SECRET_NAME3=rabbitmq-operator-username
+
+export SECRET_NAME4=rabbitmq-operator-password
+```
+
+Then you need to set the secrets in the keyvault:
+```bash
+az keyvault secret set --vault-name $VAULT_NAME --name $SECRET_NAME3 --value $RABBITMQ_ADMIN_USERNAME
+
+az keyvault secret set --vault-name $VAULT_NAME --name $SECRET_NAME4 --value $RABBITMQ_ADMIN_USERNAME
+```
 
 ### Deploy services
 
