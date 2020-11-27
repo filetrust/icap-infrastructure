@@ -229,17 +229,29 @@ This will sync the new changes that have been merged into the "main" branch of t
 Adaptation service
 ```bash
 argocd app create adaptation-service-main --repo https://github.com/filetrust/icap-infrastructure --path adaptation --dest-server <cluster url> --dest-namespace icap-adaptation --revision main
-```
 
-Rabbitmq
+```
+Rabbitmq-operator
 ```bash
-argocd app create rabbitmq-service-main --repo https://github.com/filetrust/icap-infrastructure --path rabbitmq --dest-server <cluster url> --dest-namespace icap-adaptation --revision main
+argocd app create rabbitmq-operator-main --repo https://github.com/filetrust/icap-infrastructure --path rabbitmq-operator --dest-server <cluster url> --dest-namespace default --revision main
 ```
 
-ICAP-Administration
+Rabbitmq-service
+```bash
+argocd app create rabbitmq-service-main --repo https://github.com/filetrust/icap-infrastructure --path rabbitmq-service --dest-server <cluster url> --dest-namespace icap-adaptation --revision main
+```
+
+Icap-administration
 ```bash
  argocd app create icap-administration-main --repo https://github.com/filetrust/icap-infrastructure --path administration --dest-server <cluster url> --dest-namespace icap-administration --revision main
  ```
+
+Icap-ncfs
+```bash
+ argocd app create icap-administration-main --repo https://github.com/filetrust/icap-infrastructure --path ncfs --dest-server <cluster url> --dest-namespace icap-ncfs --revision main
+ ```
+
+ If you want to deploy the *Develop* branch then change the *--revision* to *Develop*
 
 ### ArgoCD Cheat Sheet
 
