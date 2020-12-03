@@ -1,0 +1,48 @@
+{{- $root := . }}
+{{- range $key, $value := .Values.transactioneventapi.volumes }}
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ $value.name }}
+provisioner: {{ $value.storageClass.provisioner }}
+parameters:
+  skuName: {{ $value.storageClass.skuName }}
+  location: {{ $value.storageClass.location }}
+  storageAccount: {{ $value.storageClass.storageAccount }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ $value.name }}
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadOnlyMany
+  storageClassName: {{ $value.name }}
+  azureFile:
+    secretName: {{ $value.persistentVolume.secretName }}
+    shareName: {{ $value.persistentVolume.shareName }}
+    readOnly: true
+  mountOptions:
+  - dir_mode=0744
+  - file_mode=0744
+  - uid=1000
+  - gid=1000
+  - mfsymlinks
+  - nobrl
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ $value.name }}
+spec:
+  accessModes:
+    - ReadOnlyMany
+  storageClassName: {{ $value.name }}
+  resources:
+    requests:
+      storage: 100Gi
+---
+{{- end }}
+---

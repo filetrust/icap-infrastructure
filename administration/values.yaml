@@ -69,6 +69,18 @@ policymanagementapi:
   tolerations: []
   affinity: {}
 transactioneventapi:
+  volumes:
+    region1transactions:
+      name: region1-transactions-volume
+      mountPath: /app/transactions/region1
+      persistentVolume:
+        shareName: transactions
+        secretName: region1-transactions-secret
+      storageClass:
+        skuName: Premium_LRS
+        location: northeurope
+        storageAccount: sebicap
+        provisioner: kubernetes.io/azure-file
   fullnameOverride: transaction-event-api
   replicaCount: 1
   imagePullSecrets: []
@@ -81,8 +93,6 @@ transactioneventapi:
   service:
     type: ClusterIP
     port: 443
-  configuration:
-    ShareName: transactions
   deployment:
     containerPort: 443
   probes:

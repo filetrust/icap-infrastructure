@@ -24,8 +24,19 @@ spec:
       annotations:
         buildID: {{ .Values.buildID | default "" | quote }}
     spec:
+      volumes:
+  {{- range $key, $value := .Values.transactioneventapi.volumes }}
+      - name: {{ $value.name }}
+        persistentVolumeClaim:
+          claimName: {{ $value.name }}
+  {{- end }}
       containers:
         - name: {{ .Chart.Name }}
+  {{- range $key, $value := .Values.transactioneventapi.volumes }}
+          volumeMounts:
+          - name: {{ $value.name }}
+            mountPath: {{ $value.mountPath }}
+  {{- end }}
           image: "{{ .Values.imagestore.transactioneventapi.registry }}{{ .Values.imagestore.transactioneventapi.repository }}:{{ .Values.imagestore.transactioneventapi.tag }}"
           ports:
             - name: http
