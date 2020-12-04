@@ -105,4 +105,4 @@ imagestore:
     repository: glasswallsolutions/archive-processing-service
     tag: develop-4f0b983
   transactionqueryservice:
-    tag: develop-b2a4225
+    tag: develop-f017c16
