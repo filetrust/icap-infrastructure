@@ -106,3 +106,7 @@ imagestore:
     tag: develop-d868800
   transactionqueryservice:
     tag: develop-e7af94e
+secrets:
+  transactionstore:
+    accountName: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountName/75f05cfd6e82484fb6e6eff10ad55651>>"
+    accountKey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountKey/26ec6577a1a04298bcff5fcb7d927a44>>"
