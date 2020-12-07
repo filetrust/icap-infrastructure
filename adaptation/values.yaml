@@ -11,37 +11,37 @@ serviceAccount:
   policyupdatename: policy-update-service-sa
   janitorname: pod-janitor-sa
 volumemountpath:
-  source: "/var/azure"
-  target: "/mnt/azure"
+  source: "/var/source"
+  target: "/var/target"
 queue:
   messagebrokersecret: "rabbitmq-service-default-user"
   host:
-    url: "rabbitmq-service.icap-rabbitmq.svc.cluster.local"
-    port: "\"5672\""
+    url: "rabbitmq-service" # this should be deprecated in preference to queue specific hostname
+    port: "\"5672\"" # this should be deprecated in preference to queue specific port
   adaptationRequest:
     exchangename: "adaptation-exchange"
     requestqueuename: "adaptation-request-queue"
     replyqueuename: "amq.rabbitmq.reply-to"
     messagename: "adaptation-request"
-    hostname: "rabbitmq-service.icap-rabbitmq.svc.cluster.local"
+    hostname: "rabbitmq-service"
     port: "\"5672\""
   archiveadaptationrequest:
-    hostname: "rabbitmq-service.icap-rabbitmq.svc.cluster.local"
+    hostname: "rabbitmq-service"
     port: "\"5672\""
   transactionevent:
-    hostname: "rabbitmq-service.icap-rabbitmq.svc.cluster.local"
+    hostname: "rabbitmq-service"
     port: "\"5672\""
 adaptationservice:
   name: adaptation-service
   namespace: icap-adaptation
   replicas: 1
-  amqpurl: "amqp://guest:guest@rabbitmq-service.icap-rabbitmq.svc.cluster.local:5672/"
+  amqpurl: "amqp://guest:guest@rabbitmq-service:5672/"
   rolename: adaptation-service-role
 archiveadaptationservice:
   name: archive-adaptation-service
   namespace: icap-adaptation
   replicas: 1
-  amqpurl: "amqp://guest:guest@rabbitmq-service.icap-rabbitmq.svc.cluster.local:5672/"
+  amqpurl: "amqp://guest:guest@rabbitmq-service:5672/"
   exchange: adaptation-exchange
   rolename: archive-adaptation-service-role
 icapservice:
@@ -62,12 +62,12 @@ podjanitor:
 eventsubmissionservice:
   name: event-submission-service
   replicas: 1
-  amqpurl: "amqp://guest:guest@rabbitmq-service.icap-rabbitmq.svc.cluster.local:5672/"
+  amqpurl: "" # this should be deprecated in preference to queue specific hostname
 policyupdateservice:
   name: policy-update-service
   applabel: policyupdate
   replicas: 1
-  port: 32324
+  port: 10000
   rolename: policy-update-service-role
 requestprocessingservice:
   configmapname: request-processing-config
@@ -75,7 +75,7 @@ imagestore:
   requestprocessing:
     registry: ""
     repository: glasswallsolutions/icap-request-processing
-    tag: develop-320abda
+    tag: develop-5b07ba2
   adaptationservice:
     registry: ""
     repository: glasswallsolutions/icap-adaptation-service
@@ -99,20 +99,10 @@ imagestore:
   archiveadaptationservice:
     registry: ""
     repository: glasswallsolutions/archive-adaptation-service
-    tag: develop-79eee4a
+    tag: develop-f2f04eb
   archiveprocessingservice:
     registry: ""
     repository: glasswallsolutions/archive-processing-service
-    tag: develop-6fdfa15
-secrets:
-  transactionstore:
-    accountName: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountName>>"
-    accountKey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountKey>>"
-  containerregistry:
-    dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
-  policyupdateservice:
-    username: "<<https://gw-icap-keyvault.vault.azure.net/secrets/policyUpdateUsername>>"
-    password: "<<https://gw-icap-keyvault.vault.azure.net/secrets/policyUpdatePassword>>"
-  mvpicapservice:
-    tlsKey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/mvpicapserviceTlsKey>>"
-    tlsCert: "<<https://gw-icap-keyvault.vault.azure.net/secrets/mvpicapserviceTlsCert>>"
+    tag: develop-d868800
+  transactionqueryservice:
+    tag: develop-e7af94e

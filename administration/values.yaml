@@ -136,7 +136,6 @@ imagestore:
   transactioneventapi:
     registry: ""
     repository: glasswallsolutions/transactioneventapi
-    tag: develop-37133f8
-secrets:
-  containerregistry:
-    dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
+    tag: develop-68b5973
+  transactionqueryaggregator:
+    tag: develop-4bfea8f
