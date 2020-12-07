@@ -71,6 +71,37 @@ policyupdateservice:
   rolename: policy-update-service-role
 requestprocessingservice:
   configmapname: request-processing-config
+transactionqueryservice:
+  fullnameOverride: transaction-query-service
+  replicaCount: 1
+  imagePullSecrets: []
+  service:
+    type: ClusterIP
+    port: 443
+  deployment:
+    containerPort: 443
+  probes:
+    enabled: false
+  ingress:
+    enabled: false
+    annotations: {}
+    path: /
+    tls: []
+  volumes:
+    transactionstore:
+      shareName: transactions
+  secrets: {}
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+transactionstore:
+  resourceGroup: example
+  storageAccount: example
+  shareName: transactions
+  storage: 100Gi
+
 imagestore:
   rabbitmq:
     registry: "docker.io/"
@@ -109,7 +140,9 @@ imagestore:
     repository: glasswallsolutions/archive-processing-service
     tag: develop-d868800
   transactionqueryservice:
-    tag: develop-e7af94e
+    registry: ""
+    repository: glasswallsolutions/transaction-query-service
+    tag: develop-57d0adb
 secrets:
   transactionstore:
     accountName: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountName>>"
