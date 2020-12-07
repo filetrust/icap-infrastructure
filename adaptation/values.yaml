@@ -91,9 +91,6 @@ transactionqueryservice:
     transactionstore:
       shareName: transactions
   secrets: 
-    transactionstoresecret:
-      azurestorageaccountname: tfstate3119
-      azurestorageaccountkey: fJzIEoEPOQIgUL+LcrOAWoLBFcSJe1oqx0sa8qZ1YMYTmevPPZ+SCq4GZ3j5h9t1vi0W2CXKopcfQYHeuKtjdw==
   resources: {}
   nodeSelector: {}
   tolerations: []
