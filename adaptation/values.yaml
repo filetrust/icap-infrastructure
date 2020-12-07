@@ -90,15 +90,18 @@ transactionqueryservice:
   volumes:
     transactionstore:
       shareName: transactions
-  secrets: {}
+  secrets: 
+    transactionstoresecret:
+      azurestorageaccountname: tfstate3119
+      azurestorageaccountkey: fJzIEoEPOQIgUL+LcrOAWoLBFcSJe1oqx0sa8qZ1YMYTmevPPZ+SCq4GZ3j5h9t1vi0W2CXKopcfQYHeuKtjdw==
   resources: {}
   nodeSelector: {}
   tolerations: []
   affinity: {}
 
 transactionstore:
-  resourceGroup: example
-  storageAccount: example
+  resourceGroup: ""
+  storageAccount: ""
   shareName: transactions
   storage: 100Gi
 
