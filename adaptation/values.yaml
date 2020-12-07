@@ -90,7 +90,7 @@ transactionqueryservice:
   volumes:
     transactionstore:
       shareName: transactions
-  secrets: 
+  secrets: {}
   resources: {}
   nodeSelector: {}
   tolerations: []
