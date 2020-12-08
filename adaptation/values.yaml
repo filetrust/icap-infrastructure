@@ -90,15 +90,18 @@ transactionqueryservice:
   volumes:
     transactionstore:
       shareName: transactions
-  secrets: {}
+  secrets: 
+    transactionqueryservicepv:
+      azurestorageaccountname: "<<https://gw-tfstate-Vault.vault.azure.net/secrets/transactionStoreStorageAccount>>"
+      azurestorageaccountkey: "<<https://gw-tfstate-Vault.vault.azure.net/secrets/transactionStoreAccountKey>>"
   resources: {}
   nodeSelector: {}
   tolerations: []
   affinity: {}
 
 transactionstore:
-  resourceGroup: ""
-  storageAccount: ""
+  resourceGroup: "<<https://gw-tfstate-Vault.vault.azure.net/secrets/transactionStoreResourceGroup>>"
+  storageAccount: "<<https://gw-tfstate-Vault.vault.azure.net/secrets/transactionStoreStorageAccount>>"
   shareName: transactions
   storage: 100Gi
 

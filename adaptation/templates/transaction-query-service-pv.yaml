@@ -25,5 +25,5 @@ spec:
       storageAccount: {{ .Values.transactionstore.storageAccount }}
       shareName: {{ .Values.transactionstore.shareName }}  # only file share name, don't use full path
     nodeStageSecretRef:
-      name: transactionstoresecret
+      name: transactionqueryservicepv
       namespace: {{ .Release.Namespace }}
