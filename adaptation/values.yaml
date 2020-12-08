@@ -104,6 +104,10 @@ transactionstore:
   shareName: transactions
   storage: 100Gi
 imagestore:
+  rabbitmq:
+    registry: ""
+    repository: rabbitmq
+    tag: latest
   requestprocessing:
     registry: ""
     repository: glasswallsolutions/icap-request-processing
