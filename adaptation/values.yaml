@@ -108,5 +108,13 @@ imagestore:
     tag: develop-e7af94e
 secrets:
   transactionstore:
-    accountName: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountName/75f05cfd6e82484fb6e6eff10ad55651>>"
-    accountKey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountKey/26ec6577a1a04298bcff5fcb7d927a44>>"
+    accountName: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountName>>"
+    accountKey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountKey>>"
+  containerregistry:
+    dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
+  mvpicapservice:
+    tlsCert: "<<https://gw-icap-keyvault.vault.azure.net/secrets/mvpicapserviceTlsCert>>"
+    tlsKey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/mvpicapserviceTlsKey>>"
+  policyupdateservice:
+    username: "<<https://gw-icap-keyvault.vault.azure.net/secrets/policyUpdateUsername>>"
+    password: "<<https://gw-icap-keyvault.vault.azure.net/secrets/policyUpdatePassword>>"
