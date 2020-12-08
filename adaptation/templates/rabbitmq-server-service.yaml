@@ -1,19 +1,19 @@
 apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
-  labels: 
+  labels:
     app: {{ .Values.rabbitmqService.app }}
     component: {{ .Values.rabbitmqService.component }}
   name: {{ .Values.rabbitmqService.name }}
 spec:
  replicas: 3
- image: "{{ .Values.imagestore.rabbitmq.registry }}{{ .Values.imagestore.rabbitmq.repository }}:{{ .Values.imagestore.rabbitmq.tag }}"
+ image: {{ .Values.imagestore.rabbitmq.registry }}{{ .Values.imagestore.rabbitmq.repository }}:{{ .Values.imagestore.rabbitmq.tag }}
  imagePullSecrets:
   - name: rabbitmq-service-registry-credential
  affinity:
    podAntiAffinity:
-     preferredDuringSchedulingIgnoredDuringExecution: 
-     - weight: 100  
+     preferredDuringSchedulingIgnoredDuringExecution:
+     - weight: 100
        podAffinityTerm:
          labelSelector:
           matchExpressions:

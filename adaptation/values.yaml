@@ -72,6 +72,10 @@ policyupdateservice:
 requestprocessingservice:
   configmapname: request-processing-config
 imagestore:
+  rabbitmq:
+    registry: ""
+    repository: rabbitmq
+    tag: latest
   requestprocessing:
     registry: ""
     repository: glasswallsolutions/icap-request-processing
