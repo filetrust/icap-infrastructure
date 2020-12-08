@@ -138,4 +138,4 @@ imagestore:
     repository: glasswallsolutions/transactioneventapi
     tag: develop-68b5973
   transactionqueryaggregator:
-    tag: develop-4bfea8f
+    tag: develop-fb2b683
