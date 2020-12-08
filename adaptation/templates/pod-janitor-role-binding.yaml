@@ -2,6 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: {{ .Values.podjanitor.rolename }}-binding
+  namespace: {{.Values.adaptationservice.namespace}}
 subjects:
 - kind: ServiceAccount
   name: {{ .Values.serviceAccount.janitorname }}

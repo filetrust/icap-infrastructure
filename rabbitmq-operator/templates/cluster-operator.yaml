@@ -1,12 +1,3 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    app.kubernetes.io/component: rabbitmq-cluster-operator
-    app.kubernetes.io/name: rabbitmq-system
-    app.kubernetes.io/part-of: rabbitmq
-  name: rabbitmq-system
----
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -3874,7 +3865,6 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: rabbitmq-cluster-operator
-  namespace: rabbitmq-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -3884,7 +3874,6 @@ metadata:
     app.kubernetes.io/name: rabbitmq-cluster-operator
     app.kubernetes.io/part-of: rabbitmq
   name: rabbitmq-cluster-leader-election-role
-  namespace: rabbitmq-system
 rules:
 - apiGroups:
   - ""
@@ -4057,7 +4046,6 @@ metadata:
     app.kubernetes.io/name: rabbitmq-cluster-operator
     app.kubernetes.io/part-of: rabbitmq
   name: rabbitmq-cluster-leader-election-rolebinding
-  namespace: rabbitmq-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -4065,7 +4053,6 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: rabbitmq-cluster-operator
-  namespace: rabbitmq-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -4082,7 +4069,6 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: rabbitmq-cluster-operator
-  namespace: rabbitmq-system
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -4092,7 +4078,6 @@ metadata:
     app.kubernetes.io/name: rabbitmq-cluster-operator
     app.kubernetes.io/part-of: rabbitmq
   name: rabbitmq-cluster-operator
-  namespace: rabbitmq-system
 spec:
   replicas: 1
   selector:
@@ -4113,7 +4098,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: rabbitmqoperator/cluster-operator:1.0.0
+        image: "{{ .Values.imagestore.rabbitmq.registry }}{{ .Values.imagestore.rabbitmq.repository }}:{{ .Values.imagestore.rabbitmq.tag }}"
         name: operator
         resources:
           limits:
@@ -4128,3 +4113,5 @@ spec:
         runAsUser: 1000
       serviceAccountName: rabbitmq-cluster-operator
       terminationGracePeriodSeconds: 10
+      imagePullSecrets:
+        - name: rabbitmq-operator-registry-credential

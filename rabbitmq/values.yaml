@@ -1,0 +1,21 @@
+metadataName: "rabbitmq-controller"
+namespace: "icap-rabbitmq"
+environment:
+rabbitmqService:
+  name: rabbitmq-service
+  port: 5672
+  component: rabbitmq
+  app: taskQueue
+rabbitmqController:
+  name: rabbitmq-controller
+  port: 5672
+  cpu: 100m
+  app: taskQueue
+imagestore:
+  rabbitmq:
+    registry: ""
+    repository: rabbitmq
+    tag: latest
+secrets:
+  containerregistry:
+    dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"

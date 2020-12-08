@@ -2,6 +2,6 @@ apiVersion: scheduling.k8s.io/v1
 kind: PriorityClass
 metadata:
   name: {{ .Values.priorityClassName }}
-value: -100000
+value: -9
 globalDefault: false
 preemptionPolicy: Never

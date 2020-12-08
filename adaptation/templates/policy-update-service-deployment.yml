@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.policyupdateservice.name }}
+  namespace: {{.Values.adaptationservice.namespace}}
   labels:
     app: {{ .Values.policyupdateservice.applabel }}
 spec:
@@ -39,3 +40,5 @@ spec:
             secretKeyRef:
               name: policyupdateservicesecret
               key: password
+      imagePullSecrets:
+        - name: adaptation-registry-credential

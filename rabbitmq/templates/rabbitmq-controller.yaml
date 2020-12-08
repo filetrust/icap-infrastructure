@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    component: rabbitmq-controller
+  name: rabbitmq-controller
+  namespace: {{.Values.namespace}}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.rabbitmqService.app }}
+        component: {{.Values.rabbitmqService.component}}
+    spec:
+      containers:
+      - image: "{{ .Values.imagestore.rabbitmq.registry }}{{ .Values.imagestore.rabbitmq.repository }}:{{ .Values.imagestore.rabbitmq.tag }}"
+        name: rabbitmq-controller
+        ports:
+        - containerPort: {{ .Values.rabbitmqController.port }}
+        resources:
+          limits:
+            cpu: {{ .Values.rabbitmqController.cpu }}
+      imagePullSecrets:
+        - name: rabbitmq-registry-credential

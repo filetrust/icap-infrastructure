@@ -4,7 +4,7 @@ metadata:
   labels:
     app: {{ .Values.podjanitor.name }}
   name: {{ .Values.podjanitor.name }}
-  namespace: {{ .Values.podjanitor.namespace }}
+  namespace: {{.Values.adaptationservice.namespace}}
 spec:
   schedule: "*/1 * * * *"
   jobTemplate:
@@ -19,17 +19,19 @@ spec:
         spec:
           serviceAccountName: {{ .Values.serviceAccount.janitorname }}
           containers:
-          - name: pod-janitor
-            image: {{ .Values.imagestore.podjanitor.registry }}{{ .Values.imagestore.podjanitor.repository }}:{{ .Values.imagestore.podjanitor.tag }}
-            args:
-            - --pod-namespace={{ .Values.podjanitor.namespace }}
-            - --delete-successful-after={{ .Values.podjanitor.deleteSuccessfulAfter }}
-            - --delete-failed-after={{ .Values.podjanitor.deleteFailedAfter }}
-            resources:
-              limits:
-                cpu: 100m
-                memory: 100Mi
-              requests:
-                cpu: 10m
-                memory: 10Mi
+            - name: pod-janitor
+              image: {{ .Values.imagestore.podjanitor.registry }}{{ .Values.imagestore.podjanitor.repository }}:{{ .Values.imagestore.podjanitor.tag }}
+              args:
+              - --pod-namespace={{ .Values.podjanitor.namespace }}
+              - --delete-successful-after={{ .Values.podjanitor.deleteSuccessfulAfter }}
+              - --delete-failed-after={{ .Values.podjanitor.deleteFailedAfter }}
+              resources:
+                limits:
+                  cpu: 100m
+                  memory: 100Mi
+                requests:
+                  cpu: 10m
+                  memory: 10Mi
+          imagePullSecrets:
+            - name: adaptation-registry-credential
           restartPolicy: OnFailure

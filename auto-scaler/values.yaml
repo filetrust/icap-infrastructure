@@ -1,0 +1,36 @@
+
+metadataName: "autoscaler"
+appLabel: "cluster-autoscaler"
+
+vmssClusterTag: "skillsettag"
+
+serviceAccountName: "cluster-autoscaler"
+
+clustername: ""
+
+replicaCount: 1
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 300Mi
+  limits:
+    cpu: 100m
+    memory: 300Mi
+
+
+imagestore:
+  autoscaler:
+    registry: "k8s.gcr.io/"
+    repository: "autoscaling/cluster-autoscaler"
+    tag: "v1.17.4"
+
+secrets:
+  azureSecrets:
+    clientId: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-client-id>>"
+    clientSecret: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-client-secret>>"
+    subscriptionId: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-subscription-id>>"
+    tenantId: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-tenant-id>>"
+  containerregistry:
+    dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
+  

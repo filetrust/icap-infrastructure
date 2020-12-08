@@ -41,9 +41,6 @@ spec:
               path: /
               port: http
           {{- end }}
-          envFrom:
-          - configMapRef:
-              name: {{ template "transactioneventapi.fullname" . }}-configuration
           env:
             - name: TransactionStoreConnectionStringCsv
               valueFrom:
@@ -64,10 +61,6 @@ spec:
             {{- end }}
           resources:
 {{ toYaml .Values.transactioneventapi.resources | indent 12 }}
-    {{- with .Values.transactioneventapi.imagePullSecrets }}
-      imagePullSecrets:
-{{ toYaml . | indent 8 }}
-    {{- end }}
     {{- with .Values.transactioneventapi.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
@@ -80,3 +73,5 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
     {{- end }}
+      imagePullSecrets:
+        - name: transactioneventapi-registry-credential

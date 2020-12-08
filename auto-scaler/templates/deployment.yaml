@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{.Values.appLabel}}
+  name: {{.Values.metadataName}}
+  namespace: kube-system
+spec:
+  replicas: {{.Values.replicaCount}}
+  selector:
+    matchLabels:
+      app: {{.Values.appLabel}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.appLabel}}
+    spec:
+      serviceAccountName: {{.Values.serviceAccountName}}
+      containers:
+        - image: {{ .Values.imagestore.autoscaler.registry}}{{ .Values.imagestore.autoscaler.repository }}:{{ .Values.imagestore.autoscaler.tag }}
+          imagePullPolicy: Always
+          name: cluster-autoscaler
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          command:
+            - ./cluster-autoscaler
+            - --v=3
+            - --logtostderr=true
+            - --cloud-provider=azure
+            - --skip-nodes-with-local-storage=false
+            - --node-group-auto-discovery=label:cluster-autoscaler=enabled,cluster={{ .Values.clustername }}
+          env:
+            - name: CLUSTERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: clusternamemap
+                  key: clustername
+            - name: ARM_SUBSCRIPTION_ID
+              valueFrom:
+                secretKeyRef:
+                  key: SubscriptionID
+                  name: {{.Values.metadataName}}
+            - name: ARM_RESOURCE_GROUP
+              valueFrom:
+                configMapKeyRef:
+                  name: clusternamemap
+                  key: resourcegroup
+            - name: ARM_TENANT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: TenantID
+                  name: {{.Values.metadataName}}
+            - name: ARM_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: ClientID
+                  name: {{.Values.metadataName}}
+            - name: ARM_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: ClientSecret
+                  name: {{.Values.metadataName}}
+            - name: ARM_VM_TYPE
+              value: "vmss"
+          volumeMounts:
+            - mountPath: /etc/ssl/certs/ca-certificates.crt
+              name: ssl-certs
+              readOnly: true
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: autoscaler-registry-credential
+      volumes:
+        - hostPath:
+            path: /etc/pki/tls/certs/ca-bundle.crt
+            type: ""
+          name: ssl-certs

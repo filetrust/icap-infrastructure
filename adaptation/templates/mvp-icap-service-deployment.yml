@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mvp-icap-service
+  namespace: {{.Values.adaptationservice.namespace}}
   labels:
     app: {{ .Values.icapservice.applabel }}
 spec:
@@ -46,6 +47,8 @@ spec:
             - name: tls-config-vol
               mountPath: /usr/local/c-icap/cert
               readOnly: true
+      imagePullSecrets:
+        - name: adaptation-registry-credential
       volumes:
         - name: source-vol
           persistentVolumeClaim:

@@ -1,0 +1,13 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-{{ .Values.transactionstore.shareName }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.transactionstore.storage }}
+  volumeName: pv-{{ .Values.transactionstore.shareName }}
+  storageClassName: ""

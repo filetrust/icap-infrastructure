@@ -3,6 +3,36 @@
 A collection of Helm charts to stand up a working ICAP Service within Azure AKS, using Terraform for the infrastructure, and ArgoCD or Helm for the deployments.
 
 ## Table of Contents
+=======
+## How to structure values.yaml in a Helm Chart
+We've written a script (migrate-to-azure-docker-registry.sh) which migrates all our docker images to a private azure container registry.
+The script expects us to define our docker image registry, repo and tag in values.yaml file in the following structure:
+E.g of a busybox docker image:
+ ```
+imagestore:
+  busybox:
+    registry: ""
+    repository: library/busybox
+    tag: latest
+ ```
+
+We've also written another script called update-secrets.sh [https://github.com/filetrust/rancher-git-server] which dynamically replaces all secret values with values from azure vault.
+This script expects us to define our secret key, value pairs in values.yaml in the following format:
+
+ ```
+secrets:
+  transactionstore:
+    accountName: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountName>>"
+    accountKey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountKey>>"
+ ```
+
+The url refers to a key on azure key vault secrets. 
+The script looks up for the string "<<http url link to azure key vault secret>>" and replaces it with secret key value. 
+
+
+### Adaptation Cluster
+Deploying to local cluster (Docker Desktop).
+>>>>>>> Update readme with instructions on how to structure values.yaml file
 
 - [ICAP Infrastructure](#icap-infrastructure)
 - [Table of Contents](#table-of-contents)
@@ -227,3 +257,8 @@ Next we will deploy the services using either Helm or Argocd. Both of the Readme
 [Helm Readme](/helm/README.md)
 
 ***All commands need to be run from the root directory for the paths to be correct***
+=======
+```
+helm install ./administration/transactioneventapi --namespace management-ui --generate-name
+```
+

@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-ingress-default-backend
-  namespace: nginx
   labels:
     app: {{.Values.appLabel}}
     {{- toYaml .Values.addLabels.defaultBackend | nindent 4 }}
@@ -20,7 +19,7 @@ spec:
     spec:
       containers:
         - name: default-backend
-          image: "{{.Values.imageStore.defaultBackend.registry}}{{.Values.imageStore.defaultBackend.repository}}:{{.Values.imageStore.defaultBackend.tag}}"
+          image: "{{.Values.imagestore.defaultBackend.registry}}{{.Values.imagestore.defaultBackend.repository}}:{{.Values.imagestore.defaultBackend.tag}}"
           livenessProbe:
             httpGet:
               path: /healthz
@@ -37,3 +36,5 @@ spec:
             requests:
               cpu: 10m
               memory: 20Mi
+      imagePullSecrets:
+        - name: nginx-registry-credential

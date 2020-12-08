@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{.Values.metadataName}}
-  namespace: nginx
   labels:
     app: {{.Values.appLabel}}
     {{- toYaml .Values.addLabels.controller | nindent 4 }}
@@ -39,7 +38,7 @@ spec:
                 topologyKey: kubernetes.io/hostname
       terminationGracePeriodSeconds: 30
       containers:
-        - image: "{{.Values.imageStore.ingressController.registry}}{{.Values.imageStore.ingressController.repository}}:{{.Values.imageStore.ingressController.tag}}"
+        - image: "{{.Values.imagestore.ingressController.registry}}{{.Values.imagestore.ingressController.repository}}:{{.Values.imagestore.ingressController.tag}}"
           name: {{.Values.metadataName}}
           readinessProbe:
             httpGet:
@@ -101,6 +100,8 @@ spec:
           volumeMounts:
             - name: cache
               mountPath: "/var/run/cache"
+      imagePullSecrets:
+        - name: nginx-registry-credential
       volumes:
         - name: cache
           emptyDir: {}

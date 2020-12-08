@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata: 
   name: {{ .Values.archiveadaptationservice.name }}
+  namespace: {{.Values.adaptationservice.namespace}}
 spec:
   replicas: {{ .Values.archiveadaptationservice.replicas }}
   selector:
@@ -58,3 +59,5 @@ spec:
           requests:
             cpu: 0.5
             memory: 100Mi
+      imagePullSecrets:
+        - name: adaptation-registry-credential

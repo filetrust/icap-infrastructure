@@ -1,0 +1,8 @@
+imagestore:
+  rabbitmq:
+    registry: ""
+    repository: rabbitmqoperator/cluster-operator
+    tag: 1.0.0
+secrets:
+  containerregistry:
+    dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"

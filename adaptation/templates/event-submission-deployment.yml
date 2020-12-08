@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.eventsubmissionservice.name }}
+  namespace: {{.Values.adaptationservice.namespace}}
 spec:
   replicas: {{ .Values.eventsubmissionservice.replicas }}
   selector:
@@ -42,3 +43,6 @@ spec:
               name: {{ .Values.queue.messagebrokersecret }}
               key: password
         {{- end }}               
+      imagePullSecrets:
+        - name: adaptation-registry-credential
+

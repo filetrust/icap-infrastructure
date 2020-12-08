@@ -16,3 +16,7 @@ imagestore:
     tag: latest
 
 priorityClassName: "ballast"
+
+secrets:
+  containerregistry:
+    dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
