@@ -124,6 +124,29 @@ transactioneventapi:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+transactionqueryaggregator:
+  fullnameOverride: transaction-query-aggregator
+  replicaCount: 1
+  imagePullSecrets: []
+  service:
+    type: ClusterIP
+    port: 443
+  deployment:
+    containerPort: 443
+  configuration:
+    TransactionQueryServiceEndpointCsv: https://transaction-query-service.icap-adaptation.svc.cluster.local
+  probes:
+    enabled: false
+  ingress:
+    enabled: false
+    annotations: {}
+    path: /
+    tls: []
+  secrets: {}
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
 imagestore:
   icapmanagementui:
     registry: ""
@@ -138,4 +161,6 @@ imagestore:
     repository: glasswallsolutions/transactioneventapi
     tag: develop-68b5973
   transactionqueryaggregator:
+    registry: ""
+    repository: glasswallsolutions/transaction-query-aggregator
     tag: develop-49884c7

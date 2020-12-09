@@ -1,0 +1,19 @@
+1. Get the application URL by running these commands:
+{{- if .Values.transactionqueryaggregator.ingress.enabled }}
+{{- range .Values.transactionqueryaggregator.ingress.hosts }}
+  http{{ if $.Values.transactionqueryaggregator.ingress.tls }}s{{ end }}://{{ . }}{{ $.Values.transactionqueryaggregator.ingress.path }}
+{{- end }}
+{{- else if contains "NodePort" .Values.transactionqueryaggregator.service.type }}
+  export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ template "transactionqueryaggregator.fullname" . }})
+  export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo http://$NODE_IP:$NODE_PORT
+{{- else if contains "LoadBalancer" .Values.transactionqueryaggregator.service.type }}
+     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl get svc -w {{ template "transactionqueryaggregator.fullname" . }}'
+  export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "transactionqueryaggregator.fullname" . }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+  echo http://$SERVICE_IP:{{ .Values.transactionqueryaggregator.service.port }}
+{{- else if contains "ClusterIP" .Values.transactionqueryaggregator.service.type }}
+  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app={{ template "transactionqueryaggregator.name" . }},release={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
+  echo "Visit http://127.0.0.1:8080 to use your application"
+  kubectl port-forward $POD_NAME 8080:80
+{{- end }}
