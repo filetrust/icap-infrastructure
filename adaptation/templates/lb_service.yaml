@@ -4,7 +4,6 @@ metadata:
   annotations:
     service.beta.kubernetes.io/azure-dns-label-name: icap-client-main
   name: frontend-icap-lb
-  namespace: {{.Values.adaptationservice.namespace}}
 spec:
   type: LoadBalancer
   ports:
