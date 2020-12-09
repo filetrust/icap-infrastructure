@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.adaptationservice.name }}
+  namespace: {{.Values.adaptationservice.namespace}}
 spec:
   replicas: {{ .Values.adaptationservice.replicas }}
   selector:
@@ -42,7 +43,7 @@ spec:
             secretKeyRef:
               name: {{ .Values.queue.messagebrokersecret }}
               key: password
-        {{- end }}
+        {{- end }}          
         - name: ADAPTATION_REQUEST_QUEUE_HOSTNAME
           value: {{ .Values.queue.adaptationRequest.hostname }}
         - name: ADAPTATION_REQUEST_QUEUE_PORT

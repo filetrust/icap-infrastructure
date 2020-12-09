@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.policyupdateservice.name }}
+  namespace: {{.Values.adaptationservice.namespace}}
   labels:
     app: {{ .Values.policyupdateservice.applabel }}
 spec:
