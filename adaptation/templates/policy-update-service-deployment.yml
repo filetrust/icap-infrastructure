@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.policyupdateservice.name }}
-  namespace: {{.Values.adaptationservice.namespace}}
   labels:
     app: {{ .Values.policyupdateservice.applabel }}
 spec:
@@ -16,7 +15,7 @@ spec:
         app: {{ .Values.policyupdateservice.applabel }}
     spec:
       serviceAccountName: {{ .Values.serviceAccount.policyupdatename }}
-      containers:     
+      containers:
       - name: policy-update-service
         image: {{ .Values.imagestore.policyupdate.registry }}{{ .Values.imagestore.policyupdate.repository }}:{{ .Values.imagestore.policyupdate.tag }}
         ports:
