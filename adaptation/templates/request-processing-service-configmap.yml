@@ -53,5 +53,6 @@ data:
       "GlasswallBlockedFilesAction": 2,
       "NcfsRoutingUrl": "http://doesnt-exist.com/api",
       "ArchiveErrorReportMessage": "The archive contained files which do not comply with the current policy",
-      "ArchivePasswordProtectedReportMessage": "The archive was password protected and unable to be analysed"
+      "ArchivePasswordProtectedReportMessage": "The archive was password protected and unable to be analysed",
+      "RebuildReportMessage": "The file does not comply with the current policy"
     } 
