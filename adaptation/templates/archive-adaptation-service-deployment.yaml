@@ -1,8 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
+metadata:
   name: {{ .Values.archiveadaptationservice.name }}
-  namespace: {{.Values.adaptationservice.namespace}}
 spec:
   replicas: {{ .Values.archiveadaptationservice.replicas }}
   selector:
@@ -51,7 +50,7 @@ spec:
             secretKeyRef:
               name: {{ .Values.queue.messagebrokersecret }}
               key: password
-        {{- end }}     
+        {{- end }}
         resources:
           limits:
             cpu: 1

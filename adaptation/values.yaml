@@ -33,13 +33,11 @@ queue:
     port: "\"5672\""
 adaptationservice:
   name: adaptation-service
-  namespace: icap-adaptation
   replicas: 1
   amqpurl: "amqp://guest:guest@rabbitmq-service:5672/"
   rolename: adaptation-service-role
 archiveadaptationservice:
   name: archive-adaptation-service
-  namespace: icap-adaptation
   replicas: 1
   amqpurl: "amqp://guest:guest@rabbitmq-service:5672/"
   exchange: adaptation-exchange
@@ -55,7 +53,6 @@ icapserviceconfig:
   processingtimeoutduration: 00:01:00
 podjanitor:
   name: pod-janitor
-  namespace: icap-adaptation
   rolename: janitor-role
   deleteSuccessfulAfter: 1m
   deleteFailedAfter: 3m

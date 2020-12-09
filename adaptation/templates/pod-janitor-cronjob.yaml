@@ -4,7 +4,6 @@ metadata:
   labels:
     app: {{ .Values.podjanitor.name }}
   name: {{ .Values.podjanitor.name }}
-  namespace: {{.Values.adaptationservice.namespace}}
 spec:
   schedule: "*/1 * * * *"
   jobTemplate:
