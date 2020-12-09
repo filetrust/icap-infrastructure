@@ -90,7 +90,7 @@ transactionqueryservice:
   volumes:
     transactionstore:
       shareName: transactions
-  secrets: 
+  secrets:
     transactionqueryservicepv:
       azurestorageaccountname: "<<https://gw-tfstate-Vault.vault.azure.net/secrets/transactionStoreStorageAccount>>"
       azurestorageaccountkey: "<<https://gw-tfstate-Vault.vault.azure.net/secrets/transactionStoreAccountKey>>"
@@ -98,13 +98,11 @@ transactionqueryservice:
   nodeSelector: {}
   tolerations: []
   affinity: {}
-
 transactionstore:
   resourceGroup: "<<https://gw-tfstate-Vault.vault.azure.net/secrets/transactionStoreResourceGroup>>"
   storageAccount: "<<https://gw-tfstate-Vault.vault.azure.net/secrets/transactionStoreStorageAccount>>"
   shareName: transactions
   storage: 100Gi
-
 imagestore:
   rabbitmq:
     registry: "docker.io/"
@@ -125,7 +123,7 @@ imagestore:
   icapservice:
     registry: ""
     repository: glasswallsolutions/mvp-icap-service
-    tag: develop-9c9dd20
+    tag: develop-7cfec20
   eventsubmission:
     registry: ""
     repository: glasswallsolutions/event-submission-service
