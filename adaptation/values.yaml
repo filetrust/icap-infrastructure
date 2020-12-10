@@ -106,3 +106,6 @@ imagestore:
     tag: develop-d868800
   transactionqueryservice:
     tag: develop-e7af94e
+secrets:
+  containerregistry:
+    dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
