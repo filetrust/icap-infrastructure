@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.eventsubmissionservice.name }}
+  namespace: {{.Values.adaptationservice.namespace}}
 spec:
   replicas: {{ .Values.eventsubmissionservice.replicas }}
   selector:
@@ -29,7 +30,7 @@ spec:
         - name: TRANSACTION_EVENT_QUEUE_HOSTNAME
           value: {{ .Values.queue.transactionevent.hostname}}
         - name: TRANSACTION_EVENT_QUEUE_PORT
-          value: {{ .Values.queue.transactionevent.port }}
+          value: {{ .Values.queue.transactionevent.port }}              
         {{- if .Values.queue.messagebrokersecret }}
         - name: MESSAGE_BROKER_USER
           valueFrom:
@@ -41,7 +42,7 @@ spec:
             secretKeyRef:
               name: {{ .Values.queue.messagebrokersecret }}
               key: password
-        {{- end }}
+        {{- end }}               
       imagePullSecrets:
         - name: adaptation-registry-credential
 
