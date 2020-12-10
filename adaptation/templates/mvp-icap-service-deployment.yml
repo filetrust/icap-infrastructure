@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mvp-icap-service
+  namespace: {{.Values.adaptationservice.namespace}}
   labels:
     app: {{ .Values.icapservice.applabel }}
 spec:

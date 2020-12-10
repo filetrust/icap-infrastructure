@@ -6,6 +6,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: glasswalltarget-pvc
+  namespace: {{.Values.adaptationservice.namespace}}
 spec:
   storageClassName: azurefile
   accessModes: [ "ReadWriteMany" ]
