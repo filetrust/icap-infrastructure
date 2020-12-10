@@ -141,5 +141,14 @@ imagestore:
     repository: glasswallsolutions/transaction-query-service
     tag: develop-57d0adb
 secrets:
+  transactionstore:
+    accountName: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountName>>"
+    accountKey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountKey>>"
   containerregistry:
     dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
+  mvpicapservice:
+    tlsCert: "<<https://gw-icap-keyvault.vault.azure.net/secrets/mvpicapserviceTlsCert>>"
+    tlsKey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/mvpicapserviceTlsKey>>"
+  policyupdateservice:
+    username: "<<https://gw-icap-keyvault.vault.azure.net/secrets/policyUpdateUsername>>"
+    password: "<<https://gw-icap-keyvault.vault.azure.net/secrets/policyUpdatePassword>>"
