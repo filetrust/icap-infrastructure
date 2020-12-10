@@ -4069,6 +4069,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: rabbitmq-cluster-operator
+  namespace: rabbitmq-system
 ---
 apiVersion: apps/v1
 kind: Deployment
