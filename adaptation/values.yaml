@@ -73,7 +73,7 @@ requestprocessingservice:
   configmapname: request-processing-config
 imagestore:
   rabbitmq:
-    registry: ""
+    registry: "docker.io/"
     repository: rabbitmq
     tag: latest
   requestprocessing:
