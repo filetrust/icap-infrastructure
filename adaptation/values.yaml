@@ -75,7 +75,7 @@ imagestore:
   rabbitmq:
     registry: "docker.io/"
     repository: rabbitmq
-    tag: latest
+    tag: 3.8
   requestprocessing:
     registry: ""
     repository: glasswallsolutions/icap-request-processing
