@@ -13,9 +13,9 @@ rabbitmqController:
   app: taskQueue
 imagestore:
   rabbitmq:
-    registry: ""
+    registry: "docker.io/"
     repository: rabbitmq
-    tag: latest
+    tag: 3.8
 secrets:
   containerregistry:
     dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
