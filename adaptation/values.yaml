@@ -153,5 +153,5 @@ secrets:
     username: "<<https://gw-icap-keyvault.vault.azure.net/secrets/policyUpdateUsername>>"
     password: "<<https://gw-icap-keyvault.vault.azure.net/secrets/policyUpdatePassword>>"
   transactionqueryservicepv:
-    azurestorageaccountname: "<<https://gw-tfstate-Vault.vault.azure.net/secrets/transactionStoreStorageAccount>>"
-    azurestorageaccountkey: "<<https://gw-tfstate-Vault.vault.azure.net/secrets/transactionStoreAccountKey>>"
+    azurestorageaccountname: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountName>>"
+    azurestorageaccountkey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreAccountKey>>"
