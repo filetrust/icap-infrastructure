@@ -90,10 +90,6 @@ transactionqueryservice:
   volumes:
     transactionstore:
       shareName: transactions
-#  secrets:
-#    transactionqueryservicepv:
-#      azurestorageaccountname: "<<https://gw-tfstate-Vault.vault.azure.net/secrets/transactionStoreStorageAccount>>"
-#      azurestorageaccountkey: "<<https://gw-tfstate-Vault.vault.azure.net/secrets/transactionStoreAccountKey>>"
   resources: {}
   nodeSelector: {}
   tolerations: []
@@ -156,3 +152,6 @@ secrets:
   policyupdateservice:
     username: "<<https://gw-icap-keyvault.vault.azure.net/secrets/policyUpdateUsername>>"
     password: "<<https://gw-icap-keyvault.vault.azure.net/secrets/policyUpdatePassword>>"
+  transactionqueryservicepv:
+    azurestorageaccountname: "<<https://gw-tfstate-Vault.vault.azure.net/secrets/transactionStoreStorageAccount>>"
+    azurestorageaccountkey: "<<https://gw-tfstate-Vault.vault.azure.net/secrets/transactionStoreAccountKey>>"
