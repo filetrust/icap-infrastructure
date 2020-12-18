@@ -9,5 +9,4 @@ spec:
   resources:
     requests:
       storage: {{ .Values.transactionstore.storage }}
-  volumeName: pv-{{ .Values.transactionstore.shareName }}
   storageClassName: azurefile
