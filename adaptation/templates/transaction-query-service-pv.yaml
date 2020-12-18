@@ -3,6 +3,7 @@ kind: PersistentVolume
 metadata:
   name: pv-{{ .Values.transactionstore.shareName }}
 spec:
+  storageClassName: azurefile
   capacity:
     storage: {{ .Values.transactionstore.storage }}
   accessModes:
