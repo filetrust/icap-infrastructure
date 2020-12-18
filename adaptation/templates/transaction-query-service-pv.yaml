@@ -4,7 +4,6 @@ metadata:
   name: pv-{{ .Values.transactionstore.shareName }}
 spec:
   claimRef:
-    namespace: icap-adaptation
     name: pvc-{{ .Values.transactionstore.shareName }}
   storageClassName: azurefile
   capacity:
