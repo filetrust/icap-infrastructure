@@ -53,11 +53,6 @@ spec:
             - name: ASPNETCORE_URLS
               value: "https://+:443"
           resources:
-{{ toYaml .Values.transactionqueryservice.resources | indent 12 }}
-    {{- with .Values.transactionqueryservice.imagePullSecrets }}
-      imagePullSecrets:
-{{ toYaml . | indent 8 }}
-    {{- end }}
     {{- with .Values.transactionqueryservice.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
@@ -70,3 +65,5 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
     {{- end }}
+      imagePullSecrets:
+        - name: adaptation-registry-credential
