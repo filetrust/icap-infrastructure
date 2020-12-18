@@ -25,7 +25,7 @@ spec:
         buildID: {{ .Values.buildID | default "" | quote }}
     spec:
       volumes:
-        - name: {{ .Values.transactionstore.shareName }}
+        - name: pv-{{ .Values.transactionstore.shareName }}
           persistentVolumeClaim:
             claimName: pvc-{{ .Values.transactionstore.shareName }}
       containers:
