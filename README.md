@@ -8,7 +8,6 @@ A collection of Helm charts to stand up a working ICAP Service within Azure AKS,
 - [Table of Contents](#table-of-contents)
 - [icap-terraform-aks-deployment](#icap-terraform-aks-deployment)
 - [Pre-requisites](#pre-requisites)
-- [Create Azure storage account, blob storage, File share and Azure Key Vault](#create-azure-storage-account-blob-storage-file-share-and-azure-key-vault)
 - [Create Terraform Principal](#create-terraform-principal)
 - [Add a Service Principle to Azure Key Vault](#add-a-service-principle-to-azure-key-vault)
 - [Initialise Terraform and deploy to Azure](#initialise-terraform-and-deploy-to-azure)
@@ -32,76 +31,6 @@ In order to follow along with this guide you will need the following:
 - Bash (or similar) terminal
 - Cloned the repository below:
   - [Terraform AKS IaC](https://github.com/filetrust/aks-deployment-icap)
-
-## Create Azure storage account, blob storage, File share and Azure Key Vault
-
-So within the **./scripts/k8_scripts/** folder you will find the script ***create-az-storage-account-<region>.sh*** - run the script to create the Azure storage account and blob storage. The script creates the following resources:
-
-- Resource group
-- Storage account
-- Blob container
-- File share
-- Key Vault
-
-```
-./scripts/create-az-storage-account-<region>.sh
-```
-
-You should see the following output once the script completes
-
-```bash
-storage_account_name: tfstate
-container_name: gw-icap-tfstate-test
-access_key: <access key>
-vault_name: gw-tfstate-vault-test
-```
-
-Use the below environment variables for the following commands
-
-```
-export VAULT_NAME=gw-tfstate-Vault
-export SECRET_NAME=terraform-backend-key
-export STORAGE_ACCOUNT_NAME=tfstate263
-```
-
-Create a new secret called "terraform-backend-key" in the key vault and add the value of the storage access key created previously
-
-```bash
-az keyvault secret set --vault-name $VAULT_NAME --name $SECRET_NAME --value <the value of the access_key key>
-```
-
-Now verify you can read the value of the created secret
-
-```bash
-az keyvault secret show --name $SECRET_NAME --vault-name $VAULT_NAME --query value -o tsv
-```
-
-Next export the environment variable "ARM_ACCESS_KEY" to be able to initialise terraform
-
-```bash
-export ARM_ACCESS_KEY=$(az keyvault secret show --name $SECRET_NAME --vault-name $VAULT_NAME --query value -o tsv)
-
-# now check to see if you can access it through variable
-
-echo $ARM_ACCESS_KEY
-```
-
-Whilst we are adding secrets to the keyvault, it is essential to add the file share access, which will allow the pods that are created later on to access the file share.
-
-Add the following environment variables
-```bash
-export SECRET_NAME2=$(az keyvault secret show --name file-share-acount --vault-name $VAULT_NAME --query value -o tsv)
-export SECRET_NAME3=$(az keyvault secret show --name file-share-key --vault-name $VAULT_NAME --query value -o tsv)
-export FILE_SHARE_ACCESS_KEY=$(az storage account keys list --resource-group gw-icap-tfstate --account-name $STORAGE_ACCOUNT_NAME --query "[0].value" | tr -d '"')
-```
-
-Now use the following commands to add the secrets:
-
-```bash
-az keyvault secret set --vault-name $VAULT_NAME --name $SECRET_NAME2 --value $STORAGE_ACCOUNT_NAME
-
-az keyvault secret set --vault-name $VAULT_NAME --name $SECRET_NAME3 --value $FILE_SHARE_ACCESS_KEY
-```
 
 ## Create Terraform Principal
 
@@ -209,6 +138,17 @@ Before running this script you need run the below command to create the TLS cert
 ```bash
 openssl req -newkey rsa:2048 -nodes -keyout tls.key -x509 -days 365 -out certificate.crt
 ```
+
+You will also need to make sure that the secrets are in the relivant key vault. This can be done by using the following script and adding the secrets to the variables show:
+
+```
+SECRET01=""
+SECERT02=""
+SECERT03=""
+```
+
+The rest of the secrets are gained by using Azure CLI or by using commands to generate passwords.
+
 Next run the script:
 
 ```bash
