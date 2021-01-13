@@ -128,7 +128,7 @@ imagestore:
   policyupdate:
     registry: ""
     repository: glasswallsolutions/policy-update-service
-    tag: develop-ba3016f
+    tag: develop-25d78e8
   archiveadaptationservice:
     registry: ""
     repository: glasswallsolutions/archive-adaptation-service
