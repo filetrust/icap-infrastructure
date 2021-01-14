@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.policymanagementapi.name }}
+  labels:
+    {{- include "policy-management-api.labels" . | nindent 4 }}
+{{- if .Values.policymanagementapi.service.labels }}
+{{ toYaml .Values.policymanagementapi.service.labels | indent 4}}
+{{- end }} 
+spec:
+  type: {{ .Values.policymanagementapi.service.type }}
+  ports:
+    - port: {{ .Values.policymanagementapi.service.port }}
+      targetPort: {{ .Values.policymanagementapi.service.port }}
+      protocol: TCP
+  selector:
+    {{- include "policy-management-api.matchLabels" . | nindent 4 }}

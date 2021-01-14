@@ -1,0 +1,11 @@
+{{- $root := . }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "policy-management-api.fullname" . }}
+data:
+  appsettings.json: |-
+    {
+      "PolicyUpdateServiceEndpointCsv": "{{ .Values.policymanagementapi.PolicyUpdateServiceEndpointCsv }}",
+      "NcfsPolicyUpdateServiceEndpointCsv": "{{ .Values.policymanagementapi.NcfsPolicyUpdateServiceEndpointCsv }}"
+    } 

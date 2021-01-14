@@ -1,0 +1,93 @@
+{{- $root := . }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "policy-management-api.fullname" . }}
+  labels:
+    {{- include "policy-management-api.labels" . | nindent 4 }}
+spec:
+  revisionHistoryLimit: 0
+  replicas: {{ .Values.policymanagementapi.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "policy-management-api.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "policy-management-api.labels" . | nindent 8 }}
+      annotations:
+        buildID: {{ .Values.buildID | default "" | quote }}
+    spec:
+      serviceAccountName: policy-management-api-service-account
+      volumes:
+      - name: config-volume
+        configMap:
+          name: {{ template "policy-management-api.fullname" . }}
+      - name: policy-volume
+        persistentVolumeClaim:
+          claimName: pvc-policystore        
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.imagestore.policymanagementapi.registry }}{{ .Values.imagestore.policymanagementapi.repository }}:{{ .Values.imagestore.policymanagementapi.tag }}"
+          ports:
+            - name: http
+              containerPort: {{ .Values.policymanagementapi.deployment.containerPort }}
+              protocol: TCP
+          {{- if .Values.policymanagementapi.probes.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          {{- end }}
+          volumeMounts:
+          - name: config-volume
+            mountPath: /app/config
+          - name: policy-volume
+            mountPath: /mnt/policies
+          env:
+            - name: PolicyUpdateServiceUsername
+              valueFrom:
+                secretKeyRef:
+                  name: policyupdateserviceref
+                  key: username
+            - name: PolicyUpdateServicePassword
+              valueFrom:
+                secretKeyRef:
+                  name: policyupdateserviceref
+                  key: password
+            - name: NcfsPolicyUpdateServiceUsername
+              valueFrom:
+                secretKeyRef:
+                  name: ncfspolicyupdateserviceref
+                  key: username
+            - name: NcfsPolicyUpdateServicePassword
+              valueFrom:
+                secretKeyRef:
+                  name: ncfspolicyupdateserviceref
+                  key: password
+            {{- range $key, $value := .Values.policymanagementapi.configuration }}
+            - name: {{ $key }}
+              value: {{ $value }}
+            {{- end }}
+          resources:
+{{ toYaml .Values.policymanagementapi.resources | indent 12 }}
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.policymanagementapi.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.policymanagementapi.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.policymanagementapi.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
