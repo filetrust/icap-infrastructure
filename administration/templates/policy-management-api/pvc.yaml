@@ -3,11 +3,9 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: pvc-policystore
-  annotations:
-    volume.beta.kubernetes.io/storage-class: ""
 spec:
-  accessModes:
-    - ReadWriteMany
+  storageClassName: azurefile
+  accessModes: [ "ReadWriteMany" ]
   resources:
     requests:
       storage: {{ .Values.policymanagementapi.storage }}
