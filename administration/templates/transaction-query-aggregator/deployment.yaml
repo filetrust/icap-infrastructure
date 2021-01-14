@@ -57,4 +57,4 @@ spec:
 {{ toYaml . | indent 8 }}
     {{- end }}
       imagePullSecrets:
-        - name: transactionqueryaggregator-registry-credential
+        - name: policy-management-registry-credential

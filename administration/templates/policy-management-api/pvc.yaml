@@ -11,6 +11,6 @@ spec:
   resources:
     requests:
       storage: {{ .Values.policymanagementapi.storage }}
-  selector:
-    matchLabels:
-      usage: pv-policystore
+#  selector:
+#    matchLabels:
+#      usage: pv-policystore
