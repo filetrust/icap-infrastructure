@@ -23,7 +23,7 @@ spec:
             - store
          topologyKey: kubernetes.io/hostname
  persistence:
-   storageClassName: azurefile
+   storageClassName: azuredisk
    storage: 10Gi
 
 
