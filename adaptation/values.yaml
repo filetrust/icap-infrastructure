@@ -124,7 +124,7 @@ imagestore:
   icapservice:
     registry: ""
     repository: glasswallsolutions/mvp-icap-service
-    tag: main-2029339
+    tag: main-fcc22e0
   icapservicemetricsexporter:
     registry: ""
     repository: glasswallsolutions/icap-service-metrics-exporter
