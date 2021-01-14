@@ -74,11 +74,6 @@ spec:
               value: {{ $value }}
             {{- end }}
           resources:
-{{ toYaml .Values.policymanagementapi.resources | indent 12 }}
-    {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-{{ toYaml . | indent 8 }}
-    {{- end }}
     {{- with .Values.policymanagementapi.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
@@ -91,3 +86,5 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
     {{- end }}
+      imagePullSecrets:
+        - name: policy-management-registry-credential

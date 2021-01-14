@@ -64,4 +64,4 @@ spec:
 {{ toYaml . | indent 8 }}
     {{- end }}
       imagePullSecrets:
-        - name: identitymanagementservice-registry-credential
+        - name: policy-management-registry-credential
