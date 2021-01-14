@@ -40,7 +40,7 @@ queue:
     port: "\"5672\""
 adaptationservice:
   name: adaptation-service
-  replicas: 
+  replicas:
     min: 1
     max: 80
   amqpurl: "amqp://guest:guest@rabbitmq-service:5672/"
@@ -48,7 +48,7 @@ adaptationservice:
 archiveadaptationservice:
   name: archive-adaptation-service
   namespace: icap-adaptation
-  replicas: 
+  replicas:
     min: 1
     max: 10
   amqpurl: "amqp://guest:guest@rabbitmq-service:5672/"
@@ -57,7 +57,7 @@ archiveadaptationservice:
 icapservice:
   name: mvp-icap-service
   applabel: adaptation
-  replicas: 
+  replicas:
     min: 1
     max: 150
   port: 1344
@@ -129,7 +129,7 @@ imagestore:
   icapservice:
     registry: ""
     repository: glasswallsolutions/mvp-icap-service
-    tag: develop-7cfec20
+    tag: develop-44db1cf
   eventsubmission:
     registry: ""
     repository: glasswallsolutions/event-submission-service
