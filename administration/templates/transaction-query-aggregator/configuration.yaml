@@ -1,9 +1,0 @@
-{{- $root := . }}
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ template "transactionqueryaggregator.fullname" $root }}-configuration
-data:
-  {{- range $key, $value := .Values.transactionqueryaggregator.configuration }}
-  {{ $key }}: {{ $value | quote }}
-  {{- end }}
