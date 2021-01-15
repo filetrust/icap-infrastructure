@@ -29,7 +29,7 @@ policymanagementapi:
     annotations: {}
     path: /
     tls: []
-  PolicyUpdateServiceEndpointCsv: https://policy-update-service.icap-adaptation.svc.cluster.local:10000/
+  PolicyUpdateServiceEndpointCsv: https://gw-icap-dev-nor-int.dev.icap-proxy.curlywurly.me/,https://gw-icap-dev-ukw-int.dev.icap-proxy.curlywurly.me
   NcfsPolicyUpdateServiceEndpointCsv: https://ncfs-policy-update-service.icap-ncfs.svc.cluster.local:10001/
   resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -55,7 +55,7 @@ transactionqueryaggregator:
   deployment:
     containerPort: 443
   configuration:
-    TransactionQueryServiceEndpointCsv: https://transaction-query-service.icap-adaptation.svc.cluster.local
+    TransactionQueryServiceEndpointCsv: https://gw-icap-dev-nor-int.dev.icap-proxy.curlywurly.me/,https://gw-icap-dev-ukw-int.dev.icap-proxy.curlywurly.me
     ASPNETCORE_URLS: "https://+:443"
   probes:
     enabled: false
