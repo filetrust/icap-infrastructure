@@ -109,7 +109,7 @@ imagestore:
   identitymanagementservice:
     registry: ""
     repository: glasswallsolutions/identity-management-service
-    tag: develop-f3917dc
+    tag: develop-0523f81
 secrets:
   containerregistry:
     dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
