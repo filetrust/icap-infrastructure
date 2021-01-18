@@ -15,6 +15,11 @@ spec:
     repoURL: {{.Values.adaptationservice.repoUrl}}
     targetRevision: add-image-registry
     path: adaptation
+    helm:
+      values: |
+        secrets:
+          containerregistry:
+            dockerconfigjson: {{.Values.containerregistry.dockerconfigjson}}
   destination:
     server: https://kubernetes.default.svc
     namespace: {{.Values.adaptationservice.namespace}}

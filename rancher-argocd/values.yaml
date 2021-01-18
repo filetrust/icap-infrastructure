@@ -953,6 +953,8 @@ configs:
 openshift:
   enabled: false
 
+containerregistry:
+  dockerconfigjson: dockerconfigjson-value
 
 adaptationservice:
   namespace: icap-adaptation
