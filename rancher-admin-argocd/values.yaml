@@ -1,0 +1,10 @@
+containerregistry:
+  dockerconfigjson: dockerconfigjson-value
+
+adminservice:
+  namespace: icap-admin
+  project: default
+  repoUrl: http://gw-git-server-z1-dev-ukw.icap-proxy.curlywurly.me/icap-infrastructure.git
+
+argocd:
+  namespace: argo-cd

@@ -4,7 +4,7 @@ metadata:
   name: {{.Values.adminservice.namespace}}
   namespace: {{.Values.argocd.namespace}}
 spec:
-  project: {{.Values.adaptationservice.project}}
+  project: {{.Values.adminservice.project}}
   syncPolicy:
     automated: {}
     syncOptions:     # Sync options which modifies sync behavior
@@ -12,7 +12,7 @@ spec:
     - CreateNamespace=true # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
 
   source:
-    repoURL: {{.Values.adaptationservice.repoUrl}}
+    repoURL: {{.Values.adminservice.repoUrl}}
     targetRevision: add-image-registry
     path: administration
     helm:
