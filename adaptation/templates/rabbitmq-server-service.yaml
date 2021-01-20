@@ -10,6 +10,11 @@ spec:
  image: {{ .Values.imagestore.rabbitmq.registry }}{{ .Values.imagestore.rabbitmq.repository }}:{{ .Values.imagestore.rabbitmq.tag }}
  imagePullSecrets:
   - name: adaptation-registry-credential
+ tolerations:
+   - key: dedicated
+     value: stateful
+     operator: Equal
+     effect: NoSchedule
  affinity:
    podAntiAffinity:
      preferredDuringSchedulingIgnoredDuringExecution:
