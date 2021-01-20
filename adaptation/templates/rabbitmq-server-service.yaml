@@ -10,6 +10,10 @@ spec:
  image: {{ .Values.imagestore.rabbitmq.registry }}{{ .Values.imagestore.rabbitmq.repository }}:{{ .Values.imagestore.rabbitmq.tag }}
  imagePullSecrets:
   - name: adaptation-registry-credential
+ override:
+   statefulSet:
+     spec:
+       podManagementPolicy: Parallel
  tolerations:
    - key: dedicated
      value: stateful
