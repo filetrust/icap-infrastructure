@@ -6,6 +6,11 @@ managementui:
   service:
     name: icap-management-ui-service
     port: 80
+  ingress:
+    name: icap-management-ui-ingress
+    port: 80
+    host: management-ui-develop.uksouth.cloudapp.azure.com
+    path: /(.*)
   config:
     transactionEventApiUrl: https://transaction-query-aggregator/api/v1
     policyManagementApiUrl: https://policy-management-api/api/v1
@@ -30,7 +35,7 @@ policymanagementapi:
     path: /
     tls: []
   PolicyUpdateServiceEndpointCsv: https://gw-icap-dev-nor-int.dev.icap-proxy.curlywurly.me/,https://gw-icap-dev-ukw-int.dev.icap-proxy.curlywurly.me
-  NcfsPolicyUpdateServiceEndpointCsv: https://ncfs-policy-update-service.icap-ncfs.svc.cluster.local:10001/
+  NcfsPolicyUpdateServiceEndpointCsv: https://gw-icap-dev-nor-int.dev.icap-proxy.curlywurly.me/,https://gw-icap-dev-ukw-int.dev.icap-proxy.curlywurly.me
   resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -97,22 +102,25 @@ imagestore:
   icapmanagementui:
     registry: ""
     repository: glasswallsolutions/icap-management-ui
-    tag: main-3fbbb7e
+    tag: main-4c47628
   policymanagementapi:
     registry: ""
     repository: glasswallsolutions/policy-management-api
-    tag: main-729c0f7
+    tag: main-cf9288f
   transactionqueryaggregator:
     registry: ""
     repository: glasswallsolutions/transaction-query-aggregator
-    tag: main-bf9d425
+    tag: main-24d619b
   identitymanagementservice:
     registry: ""
     repository: glasswallsolutions/identity-management-service
-    tag: main-71878e5
+    tag: main-95753e1
 secrets:
   containerregistry:
     dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
+  managementui:
+    tlsCrt: "<<https://gw-icap-keyvault.vault.azure.net/secrets/managementuiTlsCert>>"
+    tlsKey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/managementuiTlsKey>>"
   transactionqueryaggregator:
     transactionqueryserviceref:
       username: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionQueryServiceUsername>>"
@@ -130,6 +138,13 @@ secrets:
   identitymanagementservice:
     identitymanagementservicesecrets:
       TokenSecret: "<<https://gw-icap-keyvault.vault.azure.net/secrets/identityManagementTokenSecret>>"
+      ManagementUIEndpoint: "<<https://gw-icap-keyvault.vault.azure.net/secrets/managementUIEndpoint>>"
     userstoresecret:
       azurestorageaccountname: "<<https://gw-icap-keyvault.vault.azure.net/secrets/userStoreAccountName>>"
       azurestorageaccountkey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/userStoreAccountKey>>"
+      EncryptionSecret: "<<https://gw-icap-keyvault.vault.azure.net/secrets/userStoreEncryptionKey>>"
+    smtpsecret:
+      SmtpHost: "<<https://gw-icap-keyvault.vault.azure.net/secrets/smtpHost>>"
+      SmtpPort: "<<https://gw-icap-keyvault.vault.azure.net/secrets/smtpPort>>"
+      SmtpUser: "<<https://gw-icap-keyvault.vault.azure.net/secrets/smtpUser>>"
+      SmtpPass: "<<https://gw-icap-keyvault.vault.azure.net/secrets/smtpPass>>"

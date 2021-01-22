@@ -20,6 +20,12 @@ spec:
         secrets:
           containerregistry:
             dockerconfigjson: {{.Values.containerregistry.dockerconfigjson}}
+        policymanagementapi:
+          PolicyUpdateServiceEndpointCsv: {{.Values.policymanagementapi.PolicyUpdateServiceEndpointCsv}}
+          NcfsPolicyUpdateServiceEndpointCsv: {{.Values.policymanagementapi.NcfsPolicyUpdateServiceEndpointCsv}}
+        transactionqueryaggregator:
+          configuration:
+            TransactionQueryServiceEndpointCsv: {{.Values.transactionqueryaggregator.configuration.TransactionQueryServiceEndpointCsv}}
   destination:
     server: https://kubernetes.default.svc
     namespace: {{.Values.adminservice.namespace}}

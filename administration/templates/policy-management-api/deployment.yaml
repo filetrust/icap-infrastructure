@@ -28,7 +28,7 @@ spec:
           claimName: pvc-policystore        
       containers:
         - name: {{ .Chart.Name }}
-          image: {{ .Values.imagestore.policymanagementapi.registry }}{{ .Values.imagestore.policymanagementapi.repository }}:{{ .Values.imagestore.policymanagementapi.tag }}
+          image: "{{ .Values.imagestore.policymanagementapi.registry }}{{ .Values.imagestore.policymanagementapi.repository }}:{{ .Values.imagestore.policymanagementapi.tag }}"
           ports:
             - name: http
               containerPort: {{ .Values.policymanagementapi.deployment.containerPort }}
@@ -74,6 +74,11 @@ spec:
               value: {{ $value }}
             {{- end }}
           resources:
+{{ toYaml .Values.policymanagementapi.resources | indent 12 }}
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+{{ toYaml . | indent 8 }}
+    {{- end }}
     {{- with .Values.policymanagementapi.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}

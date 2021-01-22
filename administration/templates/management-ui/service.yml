@@ -5,10 +5,9 @@ metadata:
     service.beta.kubernetes.io/azure-dns-label-name: management-ui
   name: {{ .Values.managementui.service.name }}
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: {{ .Values.managementui.deployment.name }}
   ports:
-  - port: {{ .Values.managementui.service.port }}
-    nodePort: 32323
-    targetPort: {{ .Values.managementui.deployment.port }}
+    - port: {{ .Values.managementui.service.port }}
+      targetPort: {{ .Values.managementui.deployment.port }}

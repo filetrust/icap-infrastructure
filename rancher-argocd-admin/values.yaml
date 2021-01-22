@@ -956,6 +956,14 @@ openshift:
 containerregistry:
   dockerconfigjson: dockerconfigjson-value
 
+policymanagementapi:
+  PolicyUpdateServiceEndpointCsv: https://gw-icap-dev-nor-int.dev.icap-proxy.curlywurly.me/,https://gw-icap-dev-ukw-int.dev.icap-proxy.curlywurly.me
+  NcfsPolicyUpdateServiceEndpointCsv: https://gw-icap-dev-nor-int.dev.icap-proxy.curlywurly.me/,https://gw-icap-dev-ukw-int.dev.icap-proxy.curlywurly.me
+
+transactionqueryaggregator:
+  configuration:
+    TransactionQueryServiceEndpointCsv: https://gw-icap-dev-nor-int.dev.icap-proxy.curlywurly.me/,https://gw-icap-dev-ukw-int.dev.icap-proxy.curlywurly.me
+
 adminservice:
   namespace: icap-admin
   project: default
