@@ -9,6 +9,6 @@ spec:
   selector:
     app: {{ .Values.managementui.deployment.name }}
   ports:
-    - port: 443
+    - port: {{ .Values.managementui.service.port }}
       nodePort: 32323
-      targetPort: 443
+      targetPort: {{ .Values.managementui.deployment.port }}

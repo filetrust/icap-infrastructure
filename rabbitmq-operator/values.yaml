@@ -6,3 +6,6 @@ imagestore:
 secrets:
   containerregistry:
     dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
+rabbitmqService:
+  name: rabbitmq-service
+  key: rabbitmq-cluster-operator

@@ -4116,3 +4116,20 @@ spec:
       terminationGracePeriodSeconds: 10
       imagePullSecrets:
         - name: rabbitmq-operator-registry-credential
+      tolerations:
+        - key: dedicated
+          value: stateful
+          operator: Equal
+          effect: NoSchedule
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: {{ .Values.rabbitmqService.key }}
+                      operator: In
+                      values:
+                        - store
+                topologyKey: kubernetes.io/hostname
