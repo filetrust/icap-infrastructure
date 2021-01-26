@@ -2,10 +2,11 @@
 
 main_dir="$PWD"
 images_dir="$main_dir/_images"
-glasswallRegistry="gwicapcontainerregistry.azurecr.io/"
-finalRegistry="$1"
+glasswallRegistry="gwicapcontainerregistry.azurecr.io"
+final_registry="$1"
 echo "Final registry is:"
-echo $finalRegistry
+echo $final_registry
+listofimages="$images_dir/values.yaml"
 
 checkPrereqs() {
   declare -a tools=("az yq find docker")
@@ -20,47 +21,78 @@ checkPrereqs() {
   done
 }
 
-#registriesLogin() {
-#  printf "Logging into registries\n"
-#  accessToken=$(az acr login --name gwicapcontainerregistry --expose-token 2>/dev/null | jq -r '.accessToken')
-#  echo -n "$accessToken" | docker login gwicapcontainerregistry.azurecr.io --username 00000000-0000-0000-0000-000000000000 --password-stdin >/dev/null
-#  dockerHubToken=$(az keyvault secret show --vault-name gw-icap-keyvault --name Docker-PAT | jq -r '.value')
-#  dockerHubUsername=$(az keyvault secret show --vault-name gw-icap-keyvault --name Docker-PAT-username | jq -r '.value')
-#  echo -n "$dockerHubToken" | docker login --username "$dockerHubUsername" --password-stdin >/dev/null
-#  printf "Login succeeded\n"
-#}
-
 importImages() {
 
-  for img in $(yq read -p p values.yaml 'imagestore.*'); do
-    registry=$(yq read values.yaml "$img.registry")
-    repository=$(yq read values.yaml "$img.repository")
-    tag=$(yq read values.yaml "$img.tag")
-    repository_name=${repository%%/*}
-    image_name=${repository##*/}
+  for img in $(yq read -p p "$listofimages" 'imagestore.*'); do
+    echo "List of images is:" $listofimages
+    registry=$(yq read "$listofimages" "$img.registry")
+    repository=$(yq read "$listofimages" "$img.repository")
+    tag=$(yq read "$listofimages" "$img.tag")
 
-    echo "Repository name:" "$repository_name"
-    echo "Image name is:" "$image_name"
-    printf "  %s\t->\t%s\n" "$registry$repository:$tag" "gwicapcontainerregistry.azurecr.io/$repository:$tag"
+    repository_name=""
+    image_name=""
+    image_relative_path=""
+    image_absolute_path=""
+    gw_image_full_name=""
+    client_image_full_name=""
+    client_image_name_no_tag=""
+    if [[ $repository == *"/"* ]]; then
+      echo "It contains '/'"
+      repository_name="${repository%%/*}"
+      image_name=${repository##*/}
+      client_image_name_no_tag="$final_registry/$repository_name/$image_name"
+      image_relative_path="$final_registry/$repository_name/$image_name:$tag"
+      gw_image_full_name="$glasswallRegistry/$repository_name/$image_name:$tag"
+      client_image_full_name="$final_registry/$repository_name/$image_name:$tag"
+      image_absolute_path="$images_dir/$gw_image_full_name.tgz"
+    else
+      echo "It doesn't contain '/'"
+      repository_name=""
+      image_name=${repository##*/}
+      client_image_name_no_tag="$final_registry/$image_name"
+      image_relative_path="$final_registry/$image_name:$tag"
 
-    images_directory="_images"
-    gw_image_full_name="$glasswallRegistry$repository_name/$image_name:$tag"
-    client_image_full_name="$finalRegistry/$repository_name/$image_name:$tag"
+      if [[ $repository_name == *""* ]]; then
+        gw_image_full_name="$glasswallRegistry/$image_name:$tag"
+      else
+        gw_image_full_name="$glasswallRegistry/$repository_name/$image_name:$tag"
+      fi
+
+      client_image_full_name="$final_registry/$image_name:$tag"
+      image_absolute_path="$images_dir/$gw_image_full_name.tgz"
+    fi
+    echo "Final repository name:" "$repository_name"
+    echo "Final image name is:" "$image_name"
+    echo "Image relative path is:" "$image_relative_path"
+    printf "  %s\t->\t%s\n" "$registry$repository:$tag" "$image_relative_path"
+
     image_relative_path="$images_dir/$gw_image_full_name.tgz"
     printf "\n  %s\t->\t%s\n" "Final file name:" "$gw_image_full_name"
-    printf "\n  %s\t->\t%s\n\n" "Image imported:" "$image_relative_path"
+    printf "\n  %s\t->\t%s\n" "Final full file name:" "$client_image_full_name"
+    printf "\n  %s\t->\t%s\n\n" "Image relative path:" "$image_relative_path"
+    printf "\n  %s\t->\t%s\n\n" "Image absolute path:" "$image_absolute_path"
 
-    echo ""
-    echo "$PWD"
-    echo ""
-    docker import "$image_relative_path" $gw_image_full_name
-    echo "Image imported:" $gw_image_full_name
+    image_exists="$(docker images -q $client_image_name_no_tag 2> /dev/null)"
+    echo "Does image exists?" $image_exists
+
+    if [[ $image_exists == "" ]]; then
+      echo "No."
+      echo "Loading image..."
+
+      docker load < "$image_absolute_path"
+      echo "Image loaded:" $image_absolute_path
+
+    else
+      echo "Yes!"
+      echo "Image ID is:" $image_exists
+    fi
 
     docker tag "$gw_image_full_name" "$client_image_full_name"
     echo "Image tagged:" $client_image_full_name
 
     docker push $client_image_full_name
     echo "Image pushed:" $client_image_full_name
+
     echo ""
     echo ""
     echo ""
@@ -73,9 +105,8 @@ checkPrereqs
 set -e
 set -o pipefail
 
-#registriesLogin
-
-#tar -zxvf _images.tgz
+az acr login --name $final_registry
+tar -zxvf _images.tgz
 
 find . -maxdepth 1 -mindepth 1 -type d | while read -r d; do
   cd $d
