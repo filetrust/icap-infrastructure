@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-az acr create --resource-group gw-icap-container-registry-resource-group \
-  --name imagesmigrationtest --sku Basic
-az acr login --name imagesmigrationtest
+registry="$1"
 
-./pull_images.sh && ./push_images.sh imagesmigrationtest.azurecr.io
+az acr create --resource-group gw-icap-container-registry-resource-group \
+  --name $registry --sku Basic
+
+az acr login --name $registry
+
+./pull_images.sh && ./push_images.sh $registry.azurecr.io
 
