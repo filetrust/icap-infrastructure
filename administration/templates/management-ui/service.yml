@@ -10,4 +10,5 @@ spec:
     app: {{ .Values.managementui.deployment.name }}
   ports:
     - port: {{ .Values.managementui.service.port }}
+      nodePort: 32323
       targetPort: {{ .Values.managementui.deployment.port }}
