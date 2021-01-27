@@ -171,7 +171,7 @@ imagestore:
   icapservice:
     registry: ""
     repository: glasswallsolutions/mvp-icap-service
-    tag: develop-8f5e937
+    tag: develop-d2902e0
   icapservicemetricsexporter:
     registry: ""
     repository: glasswallsolutions/icap-service-metrics-exporter
