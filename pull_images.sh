@@ -30,22 +30,12 @@ pullImages() {
     printf "  %s\t->\t%s\n" "Repository" "$repository"
     printf "  %s\t->\t%s\n" "Tag" "$tag"
 
-    yq_registry="$img.registry."
-    echo "YQ Registry is:" $yq_registry
-
-    yq_repository="$img.repository."
-    echo "YQ Registry is:" $yq_repository
-
-    yq_tag="$img.tag."
-    echo "YQ Registry is:" $yq_tag
-
-    $(yq write --inplace -- ../values.yaml "$yq_registry" "$registry")
-    $(yq write --inplace -- ../values.yaml $yq_repository "$repository")
-    $(yq write --inplace -- ../values.yaml $yq_tag "$tag")
+    helm_chart_name=${PWD##*/}
 
     repository_name=""
     image_relative_path=""
     image_absolute_path=""
+
     if [[ $repository == *"/"* ]]; then
       echo "It contains '/'"
       repository_name="${repository%%/*}"
@@ -57,30 +47,46 @@ pullImages() {
       repository_name=""
       image_name=${repository##*/}
       image_relative_path="$final_registry/$image_name:$tag"
-      image_absolute_path="$images_dir/$final_registry/$repository_name"
+      image_absolute_path="$images_dir/$final_registry/"
     fi
-    echo "Final repository name:" "$repository_name"
-    echo "Final image name is:" "$image_name"
-    echo "Image relative path is:" "$image_relative_path"
-    printf "  %s\t->\t%s\n" "$registry$repository:$tag" "$image_relative_path"
+    img_new_name="$img--$helm_chart_name"
+    yq_registry="$img_new_name.registry."
+    echo "YQ Registry is:" $yq_registry
+
+    yq_repository="$img_new_name.repository."
+    echo "YQ Registry is:" $yq_repository
+
+    yq_tag="$img_new_name.tag."
+    echo "YQ Registry is:" $yq_tag
+
+    $(yq write --inplace -- ../values.yaml "$yq_registry" "$final_registry")
+
+    $(yq write --inplace -- ../values.yaml "$yq_repository" "$repository")
+
+    $(yq write --inplace -- ../values.yaml $yq_tag "$tag")
+
+   echo "Final repository name:" "$repository_name"
+   echo "Final image name is:" "$image_name"
+   echo "Image relative path is:" "$image_relative_path"
+   printf "  %s\t->\t%s\n" "$registry$repository:$tag" "$image_relative_path"
 
 
-    docker pull -q "$registry$repository:$tag" >/dev/null
-    docker tag "$registry$repository:$tag" "$image_relative_path"
+   docker pull -q "$registry$repository:$tag" >/dev/null
+   docker tag "$registry$repository:$tag" "$image_relative_path"
 
 
-    mkdir -p $image_absolute_path
-    echo "Current image absolute path" "$image_absolute_path"
+   mkdir -p $image_absolute_path
+   echo "Current image absolute path" "$image_absolute_path"
 
-    final_file_name="$image_absolute_path$image_name:$tag.tgz"
-    echo "Final file name" "$final_file_name"
+   final_file_name="$image_absolute_path$image_name:$tag.tgz"
+   echo "Final file name" "$final_file_name"
 
-    docker save $registry$repository:$tag > $final_file_name
-    echo "Image saved"
-    echo ""
-    echo ""
-    echo ""
-    echo ""
+   docker save $registry$repository:$tag > $final_file_name
+   echo "Image saved"
+   echo ""
+   echo ""
+   echo ""
+   echo ""
   done
 }
 

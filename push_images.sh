@@ -29,6 +29,8 @@ importImages() {
     repository=$(yq read "$listofimages" "$img.repository")
     tag=$(yq read "$listofimages" "$img.tag")
 
+    echo "Image is:" $img
+
     repository_name=""
     image_name=""
     image_relative_path=""
@@ -42,7 +44,15 @@ importImages() {
       image_name=${repository##*/}
       client_image_name_no_tag="$final_registry/$repository_name/$image_name"
       image_relative_path="$final_registry/$repository_name/$image_name:$tag"
-      gw_image_full_name="$glasswallRegistry/$repository_name/$image_name:$tag"
+
+      if [[ $repository_name == *""* ]]; then
+        echo "Repository is NOT empty '/'"
+        gw_image_full_name="$glasswallRegistry/$repository_name/$image_name:$tag"
+      else
+        echo "Repository is empty '/'"
+        gw_image_full_name="$glasswallRegistry/$image_name:$tag"
+      fi
+
       client_image_full_name="$final_registry/$repository_name/$image_name:$tag"
       image_absolute_path="$images_dir/$gw_image_full_name.tgz"
     else
@@ -53,8 +63,10 @@ importImages() {
       image_relative_path="$final_registry/$image_name:$tag"
 
       if [[ $repository_name == *""* ]]; then
+        echo "Repository is empty '/'"
         gw_image_full_name="$glasswallRegistry/$image_name:$tag"
       else
+        echo "Repository is NOT empty '/'"
         gw_image_full_name="$glasswallRegistry/$repository_name/$image_name:$tag"
       fi
 
@@ -64,7 +76,7 @@ importImages() {
     echo "Final repository name:" "$repository_name"
     echo "Final image name is:" "$image_name"
     echo "Image relative path is:" "$image_relative_path"
-    printf "  %s\t->\t%s\n" "$registry$repository:$tag" "$image_relative_path"
+    printf "  %s\t->\t%s\n" "$registry/$repository:$tag" "$image_relative_path"
 
     image_relative_path="$images_dir/$gw_image_full_name.tgz"
     printf "\n  %s\t->\t%s\n" "Final file name:" "$gw_image_full_name"
