@@ -1,6 +1,3 @@
-ingress:
-  host: ingress-host
-
 containerregistry:
   dockerconfigjson: dockerconfigjson-value
 

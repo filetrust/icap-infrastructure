@@ -17,6 +17,9 @@ spec:
     path: administration
     helm:
       values: |
+        managementui:
+          ingress:
+            host: {{.Values.ingress.host}}
         secrets:
           containerregistry:
             dockerconfigjson: {{.Values.containerregistry.dockerconfigjson}}
