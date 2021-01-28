@@ -179,7 +179,7 @@ imagestore:
   eventsubmission:
     registry: ""
     repository: glasswallsolutions/event-submission-service
-    tag: develop-1f75835
+    tag: develop-dfd67cb
   policyupdate:
     registry: ""
     repository: glasswallsolutions/policy-update-service
