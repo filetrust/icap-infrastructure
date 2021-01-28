@@ -976,3 +976,6 @@ adaptationservice:
 
 argocd:
   namespace: argo-cd
+
+ingress:
+  host: ingress-host
