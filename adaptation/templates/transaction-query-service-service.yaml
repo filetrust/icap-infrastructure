@@ -8,9 +8,10 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  type: {{ .Values.transactionqueryservice.service.type }}
+  type: NodePort
   ports:
     - port: {{ .Values.transactionqueryservice.service.port }}
+      nodePort: 32325
       targetPort: {{ .Values.transactionqueryservice.service.port }}
       protocol: TCP
   selector:
