@@ -106,7 +106,7 @@ imagestore:
   policymanagementapi:
     registry: ""
     repository: glasswallsolutions/policy-management-api
-    tag: main-07d2b18
+    tag: main-8172945
   transactionqueryaggregator:
     registry: ""
     repository: glasswallsolutions/transaction-query-aggregator
