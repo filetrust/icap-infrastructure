@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{.Values.adaptationservice.namespace}}
+  namespace: {{.Values.argocd.namespace}}
+spec:
+  project: {{.Values.adaptationservice.project}}
+  syncPolicy:
+    automated: {}
+    syncOptions:     # Sync options which modifies sync behavior
+      - Validate=false # disables resource validation (equivalent to 'kubectl apply --validate=false') ( true by default ).
+      - CreateNamespace=true # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
+
+  source:
+    repoURL: {{.Values.adaptationservice.repoUrl}}
+    targetRevision: add-image-registry
+    path: ncfs
+    helm:
+      values: |
+        secrets:
+          containerregistry:
+            dockerconfigjson: {{.Values.containerregistry.dockerconfigjson}}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{.Values.adaptationservice.namespace}}
