@@ -64,6 +64,13 @@ spec:
               memory: 100Mi
         - name: icap-service-metrics-exporter
           image: {{ .Values.imagestore.icapservicemetricsexporter.registry }}{{ .Values.imagestore.icapservicemetricsexporter.repository }}:{{ .Values.imagestore.icapservicemetricsexporter.tag }}
+          resources:
+            limits:
+              cpu: "1"
+              memory: 500Mi
+            requests:
+              cpu: "0.5"
+              memory: 100Mi
           ports:
             - containerPort: {{ .Values.prometheus.metricsport }}
           env:
@@ -92,11 +99,4 @@ spec:
             name: c-icap-service-config            
         - name: gw-rebuild-conf-vol
           configMap:
-            name: gw-rebuild-config             
-          resources:
-            limits:
-              cpu: "1"
-              memory: 500Mi
-            requests:
-              cpu: "0.5"
-              memory: 100Mi
+            name: gw-rebuild-config
