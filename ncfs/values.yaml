@@ -1,4 +1,7 @@
 environment:
+prometheus:
+  metricsport: 8081
+  metricspath: /metrics
 referencencfs:
   fullNameOverride: reference-ncfs
   applabel: reference-ncfs
@@ -124,8 +127,17 @@ imagestore:
   ncfspolicyupdateservice:
     registry: ""
     repository: glasswallsolutions/ncfs-policy-update-service
-    tag: develop-bcf70bf
+    tag: main-8ff7507
   referencencfs:
     registry: ""
     repository: glasswallsolutions/reference-ncfs
-    tag: develop-5a9733e
+    tag: main-e0bfd42
+
+secrets:
+  policymanagementapi:
+    ncfspolicyupdateservicesecret:
+      username: "<<https://gw-icap-keyvault.vault.azure.net/secrets/ncfsPolicyUpdateServiceUsername>>"
+      password: "<<https://gw-icap-keyvault.vault.azure.net/secrets/ncfsPolicyUpdateServicePassword>>"
+
+  containerregistry:
+    dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"

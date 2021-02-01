@@ -13,5 +13,6 @@ spec:
     app: {{ template "ncfs-policy-update-service.name" . }}
   ports:
   - port: {{ .Values.ncfspolicyupdateservice.service.port }}
+    nodePort: 32326
     targetPort:  {{ .Values.ncfspolicyupdateservice.service.port }}
     protocol: TCP

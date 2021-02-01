@@ -18,6 +18,8 @@ spec:
       labels:
         app: {{ template "reference-ncfs.name" . }}
     spec:
+      imagePullSecrets:
+        - name: registry-credential
       serviceAccountName: {{ template "reference-ncfs.fullname" . }}-service-account
       containers:    
       - name: {{ .Chart.Name }}
