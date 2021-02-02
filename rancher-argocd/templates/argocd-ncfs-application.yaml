@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{.Values.adaptationservice.namespace}}
+  name: {{.Values.ncfsservice.namespace}}
   namespace: {{.Values.argocd.namespace}}
 spec:
   project: {{.Values.adaptationservice.project}}
@@ -22,4 +22,4 @@ spec:
             dockerconfigjson: {{.Values.containerregistry.dockerconfigjson}}
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{.Values.adaptationservice.namespace}}
+    namespace: {{.Values.ncfsservice.namespace}}
