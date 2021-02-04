@@ -14,6 +14,7 @@ managementui:
   config:
     transactionEventApiUrl: https://transaction-query-aggregator/api/v1
     policyManagementApiUrl: https://policy-management-api/api/v1
+    identityManagementApiUrl: https://identity-management-service/api/v1
 policymanagementapi:
   name: policy-management-api
   replicaCount: 1
@@ -102,19 +103,19 @@ imagestore:
   icapmanagementui:
     registry: ""
     repository: glasswallsolutions/icap-management-ui
-    tag: main-4c47628
+    tag: develop-eee0f6c
   policymanagementapi:
     registry: ""
     repository: glasswallsolutions/policy-management-api
-    tag: main-07d2b18
+    tag: develop-b7bdedc
   transactionqueryaggregator:
     registry: ""
     repository: glasswallsolutions/transaction-query-aggregator
-    tag: main-24d619b
+    tag: develop-52a75f6
   identitymanagementservice:
     registry: ""
     repository: glasswallsolutions/identity-management-service
-    tag: main-95753e1
+    tag: develop-3996808
 secrets:
   containerregistry:
     dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
@@ -148,3 +149,4 @@ secrets:
       SmtpPort: "<<https://gw-icap-keyvault.vault.azure.net/secrets/smtpPort>>"
       SmtpUser: "<<https://gw-icap-keyvault.vault.azure.net/secrets/smtpUser>>"
       SmtpPass: "<<https://gw-icap-keyvault.vault.azure.net/secrets/smtpPass>>"
+      SmtpSecureSocketOptions: "<<https://gw-icap-keyvault.vault.azure.net/secrets/smtpSecureSocketOptions>>"

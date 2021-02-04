@@ -21,6 +21,8 @@ spec:
               value: {{ .Values.managementui.config.transactionEventApiUrl }}
             - name: POLICY_MANAGEMENT_API_URL
               value: {{ .Values.managementui.config.policyManagementApiUrl }}
+            - name: IDENTITY_MANAGEMENT_API_URL
+              value: {{ .Values.managementui.config.identityManagementApiUrl }}
             - name: NODE_TLS_REJECT_UNAUTHORIZED
               value: "0"
           ports:
