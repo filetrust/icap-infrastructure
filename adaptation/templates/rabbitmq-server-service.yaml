@@ -10,7 +10,7 @@ spec:
  override:
   statefulSet:
     spec:
-      podManagementPolicy: Parallel
+      podManagementPolicy: OrderedReady
 {{- if .Values.imagestore.rabbitmq }} 
  image: "{{ .Values.imagestore.rabbitmq.registry }}{{ .Values.imagestore.rabbitmq.repository }}:{{ .Values.imagestore.rabbitmq.tag }}"
  imagePullSecrets:
