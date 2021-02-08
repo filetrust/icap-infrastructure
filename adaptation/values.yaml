@@ -181,7 +181,7 @@ imagestore:
   archiveadaptationservice:
     registry: ""
     repository: glasswallsolutions/archive-adaptation-service
-    tag: main-ddf071a
+    tag: main-b7c2653
   archiveprocessingservice:
     registry: ""
     repository: glasswallsolutions/archive-processing-service
