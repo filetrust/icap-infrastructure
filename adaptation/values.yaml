@@ -177,7 +177,7 @@ imagestore:
   icapservicemetricsexporter:
     registry: ""
     repository: glasswallsolutions/icap-service-metrics-exporter
-    tag: develop-e44d5bf
+    tag: develop-1495232
   eventsubmission:
     registry: ""
     repository: glasswallsolutions/event-submission-service
