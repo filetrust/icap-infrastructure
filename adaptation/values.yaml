@@ -173,7 +173,7 @@ imagestore:
   eventsubmission:
     registry: ""
     repository: glasswallsolutions/event-submission-service
-    tag: main-de67dec
+    tag: main-eb7e5ec
   policyupdate:
     registry: ""
     repository: glasswallsolutions/policy-update-service
