@@ -19,7 +19,7 @@ volumemountpath:
 prometheus:
   metricsport: 8081
   metricspath: /metrics
-  pushgatewayendpoint: "http://prometheus-pushgateway.icap-central-monitoring.svc.cluster.local:9091"
+  pushgatewayendpoint: "http://pushgateway-prometheus-pushgateway:9091/metrics"
 queue:
   messagebrokersecret: "rabbitmq-service-default-user"
   host:
