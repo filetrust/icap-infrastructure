@@ -4,8 +4,9 @@ main_dir="$PWD"
 rm -R -f "$main_dir/_images"
 mkdir "$main_dir/_images"
 images_dir="$main_dir/_images"
+touch "$main_dir/values.yaml"
 
-final_registry="gwicapcontainerregistry.azurecr.io/"
+final_registry="gwicapcontainerregistry.azurecr.io"
 
 checkPrereqs() {
   declare -a tools=("az yq find docker")
@@ -20,16 +21,6 @@ checkPrereqs() {
   done
 }
 
-#registriesLogin() {
-#  printf "Logging into registries\n"
-#  accessToken=$(az acr login --name gwicapcontainerregistry --expose-token 2>/dev/null | jq -r '.accessToken')
-#  echo -n "$accessToken" | docker login gwicapcontainerregistry.azurecr.io --username 00000000-0000-0000-0000-000000000000 --password-stdin >/dev/null
-#  dockerHubToken=$(az keyvault secret show --vault-name gw-icap-keyvault --name Docker-PAT | jq -r '.value')
-#  dockerHubUsername=$(az keyvault secret show --vault-name gw-icap-keyvault --name Docker-PAT-username | jq -r '.value')
-#  echo -n "$dockerHubToken" | docker login --username "$dockerHubUsername" --password-stdin >/dev/null
-#  printf "Login succeeded\n"
-#}
-
 pullImages() {
   for img in $(yq read -p p values.yaml 'imagestore.*'); do
     registry=$(yq read values.yaml "$img.registry")
@@ -38,39 +29,79 @@ pullImages() {
     printf "  %s\t->\t%s\n" "Registry" "$registry"
     printf "  %s\t->\t%s\n" "Repository" "$repository"
     printf "  %s\t->\t%s\n" "Tag" "$tag"
-    printf "  %s\t->\t%s\n" "$registry$repository:$tag" "$final_registry$repository:$tag"
-    docker pull -q "$registry$repository:$tag" >/dev/null
-    docker tag "$registry$repository:$tag" "$final_registry$repository:$tag"
 
-    repository_name=${repository%%/*}
-    image_name=${repository##*/}
-    echo "Repository name:" "$repository_name"
-    echo "Image name is:" "$image_name"
+    helm_chart_name=${PWD##*/}
 
-    current_helm_chart_dir=$images_dir/$final_registry$repository_name
-    mkdir -p $current_helm_chart_dir
-    echo "Current helm chart destination directory..." "$current_helm_chart_dir"
+    repository_name=""
+    image_relative_path=""
+    image_absolute_path=""
 
-    final_file_name="$current_helm_chart_dir/$image_name:$tag.tgz"
-    echo "Final file name" "$final_file_name"
+    if [[ $repository == *"/"* ]]; then
+      echo "It contains '/'"
+      repository_name="${repository%%/*}"
+      image_name=${repository##*/}
+      image_relative_path="$final_registry/$repository_name/$image_name:$tag"
+      image_absolute_path="$images_dir/$final_registry/$repository_name/"
+    else
+      echo "It doesn't contain '/'"
+      repository_name=""
+      image_name=${repository##*/}
+      image_relative_path="$final_registry/$image_name:$tag"
+      image_absolute_path="$images_dir/$final_registry/"
+    fi
+    img_new_name="$img--$helm_chart_name"
+    yq_registry="$img_new_name.registry."
+    echo "YQ Registry is:" $yq_registry
 
-    docker save $registry$repository:$tag > $final_file_name
-    echo "Image saved"
-    echo ""
-    echo ""
-    echo ""
-    echo ""
+    yq_repository="$img_new_name.repository."
+    echo "YQ Registry is:" $yq_repository
+
+    yq_tag="$img_new_name.tag."
+    echo "YQ Registry is:" $yq_tag
+
+    $(yq write --inplace -- ../values.yaml "$yq_registry" "$final_registry")
+
+    $(yq write --inplace -- ../values.yaml "$yq_repository" "$repository")
+
+    $(yq write --inplace -- ../values.yaml $yq_tag "$tag")
+
+   echo "Final repository name:" "$repository_name"
+   echo "Final image name is:" "$image_name"
+   echo "Image relative path is:" "$image_relative_path"
+   printf "  %s\t->\t%s\n" "$registry$repository:$tag" "$image_relative_path"
+
+
+   docker pull -q "$registry$repository:$tag" >/dev/null
+   docker tag "$registry$repository:$tag" "$image_relative_path"
+
+
+   mkdir -p $image_absolute_path
+   echo "Current image absolute path" "$image_absolute_path"
+
+   final_file_name="$image_absolute_path$image_name:$tag.tgz"
+   echo "Final file name" "$final_file_name"
+
+   docker save $registry$repository:$tag > $final_file_name
+   echo "Image saved"
+   echo ""
+   echo ""
+   echo ""
+   echo ""
   done
 }
 
 createTarFile() {
   tar_file="_images.tgz"
   if [ -f "$tar_file" ]; then
-    echo "Removing '_images.tgz'..."
+    echo "Removing old '_images.tgz'..."
     rm _images.tgz
-    echo "'_images.tgz' removed."
+    echo "Old '_images.tgz' removed."
   fi
 
+  sleep 5
+  echo "Main dir is:" $main_dir
+
+  mv $main_dir/values.yaml $images_dir
   rm -rf "$images_dir/$final_registry/*.tgz" && tar cvfz _images.tgz _images
 }
 
@@ -78,8 +109,6 @@ checkPrereqs
 
 set -e
 set -o pipefail
-
-#registriesLogin
 
 find . -maxdepth 1 -mindepth 1 -type d | while read -r d; do
   cd $d
