@@ -1,5 +1,4 @@
 environment:
-
 nginx:
   name: file-drop-nginx
   deployment:
@@ -25,7 +24,6 @@ nginx:
     port: 80
     host: file-drop-develop.uksouth.cloudapp.azure.com
     path: /(.*)
-
 filedropui:
   name: file-drop-ui
   deployment:
@@ -39,7 +37,6 @@ filedropui:
     annotations: {}
     path: /
     tls: []
-
 filedropapi:
   name: file-drop-api
   deployment:
@@ -53,12 +50,11 @@ filedropapi:
     annotations: {}
     path: /api
     tls: []
-
 imagestore:
   icapfiledropui:
     registry: ""
     repository: glasswallsolutions/icap-filedrop-ui
-    tag: develop-8efb367
+    tag: main-16e9bfc
   icapfiledropapi:
     registry: ""
     repository: glasswallsolutions/icap-filedrop-api
