@@ -197,7 +197,7 @@ imagestore:
   transactionqueryservice:
     registry: ""
     repository: glasswallsolutions/transaction-query-service
-    tag: develop-3c62dca
+    tag: develop-f31d8c6
 secrets:
   containerregistry:
     dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
