@@ -112,7 +112,7 @@ imagestore:
   transactionqueryaggregator:
     registry: ""
     repository: glasswallsolutions/transaction-query-aggregator
-    tag: develop-b8d0fda
+    tag: develop-48807e0
   identitymanagementservice:
     registry: ""
     repository: glasswallsolutions/identity-management-service
