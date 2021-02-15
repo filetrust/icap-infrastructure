@@ -8,6 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
     cert-manager.io/issuer: selfsigning-issuer
     service.beta.kubernetes.io/azure-dns-label-name: {{ .Values.managementui.ingress.host }}
+    kubernetes.io/ingress.class: azure/application-gateway
 spec:
   tls:
   - hosts:

@@ -8,6 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: 1000m
     service.beta.kubernetes.io/azure-dns-label-name: {{ .Values.nginx.ingress.host }}
+    kubernetes.io/ingress.class: azure/application-gateway
     cert-manager.io/issuer: selfsigning-issuer-nginx
 spec:
   tls:
