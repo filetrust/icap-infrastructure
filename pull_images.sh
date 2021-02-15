@@ -81,7 +81,7 @@ pullImages() {
    final_file_name="$image_absolute_path$image_name:$tag.tgz"
    echo "Final file name" "$final_file_name"
 
-   docker save $registry$repository:$tag > $final_file_name
+   docker save $image_relative_path > $final_file_name
    echo "Image saved"
    echo ""
    echo ""
