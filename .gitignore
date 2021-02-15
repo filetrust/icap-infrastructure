@@ -157,3 +157,5 @@ administration/templates/secrets.yaml
 ncfs/templates/ncfs-policy-update-service/secrets.yaml
 administration/templates/management-ui/secrets.yaml
 
+# Ignore container image package
+*_images*
