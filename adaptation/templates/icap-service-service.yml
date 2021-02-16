@@ -4,8 +4,10 @@ metadata:
   name: icap-service
   labels:
     app: {{ .Values.icapservice.applabel }}
+  annotations:
+    service.beta.kubernetes.io/azure-dns-label-name: {{ .Values.lbService.dnsname }}    
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: {{ .Values.icapservice.applabel }}
   # The node port is hard coded to match the load balancer. In the future we want to be template it.
@@ -16,6 +18,5 @@ spec:
     targetPort: 1344
   - port: 1345
     protocol: TCP
-    nodePort: 32323
     name: tlsport
     targetPort: 1345
