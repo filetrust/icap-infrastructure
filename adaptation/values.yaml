@@ -157,7 +157,7 @@ imagestore:
   requestprocessing:
     registry: ""
     repository: glasswallsolutions/icap-request-processing
-    tag: main-0ea9064
+    tag: main-b79d603
   adaptationservice:
     registry: ""
     repository: glasswallsolutions/icap-adaptation-service
