@@ -4,7 +4,6 @@ metadata:
   labels:
     app: {{ .Values.podjanitor.name }}
   name: {{ .Values.podjanitor.name }}
-  namespace: {{.Values.adaptationservice.namespace}}
 spec:
   schedule: "*/1 * * * *"
   jobTemplate:
@@ -25,7 +24,7 @@ spec:
               - --pod-namespace={{ .Release.Namespace }}
               - --delete-successful-after={{ .Values.podjanitor.deleteSuccessfulAfter }}
               - --delete-failed-after={{ .Values.podjanitor.deleteFailedAfter }}
-              - --pushgateway-endpoint={{ .Values.prometheus.pushgatewayendpoint }}
+              - --pushgateway-endpoint={{ .Values.prometheus.pushgatewayendpoint }}              
               resources:
                 limits:
                   cpu: 100m

@@ -30,7 +30,7 @@ spec:
       volumes:
         - name: {{ .Values.transactionstore.shareName }}
           persistentVolumeClaim:
-            claimName: pvc-{{ .Values.transactionstore.shareName }}
+            claimName: pvc-transaction-query-service
       containers:
         - name: {{ .Chart.Name }}
           volumeMounts:
@@ -69,6 +69,11 @@ spec:
                   name: transactionqueryservicesecret
                   key: password
           resources:
+{{ toYaml .Values.transactionqueryservice.resources | indent 12 }}
+    {{- with .Values.transactionqueryservice.imagePullSecrets }}
+      imagePullSecrets:
+{{ toYaml . | indent 8 }}
+    {{- end }}
     {{- with .Values.transactionqueryservice.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
@@ -81,5 +86,3 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
     {{- end }}
-      imagePullSecrets:
-        - name: adaptation-registry-credential

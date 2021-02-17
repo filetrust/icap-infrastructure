@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.policyupdateservice.name }}
-  namespace: {{.Values.adaptationservice.namespace}}
   labels:
     app: {{ .Values.policyupdateservice.applabel }}
 spec:
@@ -17,7 +16,7 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/path: {{ .Values.prometheus.metricspath }}
-        prometheus.io/port: "{{ .Values.prometheus.metricsport }}"
+        prometheus.io/port: "{{ .Values.prometheus.metricsport }}"        
     spec:
       serviceAccountName: {{ .Values.serviceAccount.policyupdatename }}
       containers:     

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-transaction-query-service
+  labels:
+    usage: pv-transaction-query-service
+spec:
+  capacity:
+    storage: {{ .Values.transactionstore.storage }}
+  accessModes:
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  azureFile:
+    secretName: transactionstoresecret
+    shareName: {{ .Values.transactionstore.shareName }}
+    readOnly: true

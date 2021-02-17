@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata: 
   name: {{ .Values.archiveadaptationservice.name }}
-  namespace: {{.Values.adaptationservice.namespace}}
 spec:
   replicas: {{ .Values.archiveadaptationservice.replicas }}
   selector:
@@ -15,7 +14,7 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/path: {{ .Values.prometheus.metricspath }}
-        prometheus.io/port: "{{ .Values.prometheus.metricsport }}"
+        prometheus.io/port: "{{ .Values.prometheus.metricsport }}"        
     spec:
       serviceAccountName: {{ .Values.serviceAccount.archiveadaptationname  }}
       containers:
@@ -33,7 +32,7 @@ spec:
         - name: METRICS_PORT
           value: "{{ .Values.prometheus.metricsport }}"
         - name: PUSHGATEWAY_ENDPOINT
-          value: {{ .Values.prometheus.pushgatewayendpoint }}
+          value: {{ .Values.prometheus.pushgatewayendpoint }}          
         - name: INPUT_MOUNT
           value: {{ .Values.volumemountpath.source }}
         - name: OUTPUT_MOUNT

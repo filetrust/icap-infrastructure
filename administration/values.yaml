@@ -103,15 +103,15 @@ imagestore:
   icapmanagementui:
     registry: ""
     repository: glasswallsolutions/icap-management-ui
-    tag: develop-eee0f6c
+    tag: main-0dc5346
   policymanagementapi:
     registry: ""
     repository: glasswallsolutions/policy-management-api
-    tag: develop-b7bdedc
+    tag: main-e3ccee4
   transactionqueryaggregator:
     registry: ""
     repository: glasswallsolutions/transaction-query-aggregator
-    tag: develop-52a75f6
+    tag: main-dd638c0
   identitymanagementservice:
     registry: ""
     repository: glasswallsolutions/identity-management-service

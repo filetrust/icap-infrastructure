@@ -38,7 +38,6 @@ queue:
     port: "\"5672\""
 adaptationservice:
   name: adaptation-service
-  namespace: icap-adaptation
   replicas: 1
   amqpurl: "amqp://guest:guest@rabbitmq-service:5672/"
   rolename: adaptation-service-role
@@ -148,15 +147,9 @@ transactionqueryservice:
   tolerations: []
   affinity: {}
 transactionstore:
-  resourceGroup: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreResourceGroup>>"
-  storageAccount: "<<https://gw-icap-keyvault.vault.azure.net/secrets/transactionStoreStorageAccount>>"
   shareName: transactions
   storage: 100Gi
 imagestore:
-  rabbitmq:
-    registry: "docker.io/"
-    repository: rabbitmq
-    tag: 3.8
   requestprocessing:
     registry: ""
     repository: glasswallsolutions/icap-request-processing

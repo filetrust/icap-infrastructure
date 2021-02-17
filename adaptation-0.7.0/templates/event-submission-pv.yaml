@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-event-submission
+  labels:
+    usage: pv-event-submission
+spec:
+  capacity:
+    storage: {{ .Values.transactionstore.storage }}
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  azureFile:
+    secretName: transactionstoresecret
+    shareName: {{ .Values.transactionstore.shareName }}
+    readOnly: false

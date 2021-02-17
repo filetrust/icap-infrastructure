@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.adaptationservice.name }}
-  namespace: {{.Values.adaptationservice.namespace}}
 spec:
   replicas: {{ .Values.adaptationservice.replicas }}
   selector:
@@ -39,7 +38,7 @@ spec:
         - name: OUTPUT_MOUNT
           value: {{ .Values.volumemountpath.target }}
         - name: REQUEST_PROCESSING_IMAGE
-          value: {{ .Values.imagestore.requestprocessing.registry}}{{ .Values.imagestore.requestprocessing.repository }}:{{ .Values.imagestore.requestprocessing.tag }}
+          value: {{ .Values.imagestore.requestprocessing.registry }}{{ .Values.imagestore.requestprocessing.repository }}:{{ .Values.imagestore.requestprocessing.tag }}
         - name: REQUEST_PROCESSING_TIMEOUT
           value: {{ .Values.icapserviceconfig.processingtimeoutduration }}
         {{- if .Values.queue.messagebrokersecret }}

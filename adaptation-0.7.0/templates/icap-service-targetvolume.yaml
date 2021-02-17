@@ -1,0 +1,14 @@
+# kind: PersistentVolume
+# apiVersion: v1
+# metadata:
+#   name: glasswalltarget-pv
+#   labels:
+#     type: local
+# spec:
+#   storageClassName: azurefile
+#   capacity:
+#     storage: 1Gi
+#   accessModes:
+#     - ReadWriteOnce
+#   # hostPath:
+#   #   path: "/run/desktop/mnt/host/c/test-data-output"
