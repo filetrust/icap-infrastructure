@@ -10,7 +10,7 @@ spec:
   {{- if .Values.imagestore.rabbitmq }}
  image: "{{ .Values.imagestore.rabbitmq.registry }}{{ .Values.imagestore.rabbitmq.repository }}:{{ .Values.imagestore.rabbitmq.tag }}"
  imagePullSecrets:
-   - name: rabbitmq-service-registry-credential
+   - name: adaptation-registry-credential
   {{- end }}
  override:
    statefulSet:
