@@ -60,7 +60,7 @@ imagestore:
   icapfiledropui:
     registry: ""
     repository: glasswallsolutions/icap-filedrop-ui
-    tag: develop-22350da
+    tag: develop-fd1a289
   icapfiledropapi:
     registry: ""
     repository: glasswallsolutions/icap-filedrop-api
