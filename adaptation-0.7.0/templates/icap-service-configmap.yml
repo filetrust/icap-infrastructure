@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: icap-service-config
-data:
-  EnableFileId: {{ quote .Values.icapservice.enableFileId }}

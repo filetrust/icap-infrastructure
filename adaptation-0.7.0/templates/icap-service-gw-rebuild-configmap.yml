@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: gw-rebuild-config 
-data:
-  gw_rebuild.conf: |-
-    {{- range $key, $val := .Values.cicapservice.rebuild }}
-    {{ $key }} {{ $val }}
-    {{- end}}
