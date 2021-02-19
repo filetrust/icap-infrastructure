@@ -61,7 +61,7 @@ icapservice:
   applabel: adaptation
   replicas:
     min: 1
-    max: 150  
+    max: 150
   port: 1344
   tlsport: 1345
   enableFileId: true
@@ -200,7 +200,7 @@ imagestore:
   transactionqueryservice:
     registry: ""
     repository: glasswallsolutions/transaction-query-service
-    tag: main-16ca1cc
+    tag: main-78dc81c
 secrets:
   containerregistry:
     dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
