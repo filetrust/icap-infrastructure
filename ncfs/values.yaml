@@ -131,4 +131,4 @@ imagestore:
   referencencfs:
     registry: ""
     repository: glasswallsolutions/reference-ncfs
-    tag: main-e0bfd42
+    tag: main-f543a19
