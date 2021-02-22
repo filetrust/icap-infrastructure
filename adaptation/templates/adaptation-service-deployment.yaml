@@ -12,7 +12,6 @@ spec:
     metadata:
       labels:
         app: {{ .Values.adaptationservice.name }}
-        rancher: deployment
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/path: {{ .Values.prometheus.metricspath }}
