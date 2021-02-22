@@ -5,6 +5,7 @@ A collection of Helm charts to stand up a working ICAP Service within Azure AKS,
 ## Table of Contents
 =======
 ## How to structure values.yaml in a Helm Chart
+
 We've written a script (migrate-to-azure-docker-registry.sh) which migrates all our docker images to a private azure container registry.
 The script expects us to define our docker image registry, repo and tag in values.yaml file in the following structure:
 E.g of a busybox docker image:
@@ -15,6 +16,27 @@ imagestore:
     repository: library/busybox
     tag: latest
  ```
+ 
+We also need to add image pull secrets to deployment yamls as such:
+
+```
+imagePullSecrets:
+  - name: adaptation-registry-credential
+```
+
+A secret config yaml needs to be added to each helm chart, e.g:
+
+```
+{{- if .Values.secrets }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: adaptation-registry-credential
+data:
+  .dockerconfigjson: {{ .Values.secrets.containerregistry.dockerconfigjson }}
+type: kubernetes.io/dockerconfigjson
+{{- end }} 
+```
 
 We've also written another script called update-secrets.sh [https://github.com/filetrust/rancher-git-server] which dynamically replaces all secret values with values from azure vault.
 This script expects us to define our secret key, value pairs in values.yaml in the following format:
