@@ -11,6 +11,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.managementui.deployment.name }}
+        rancher: icap
     spec:
       containers:
         - name: icap-managementui
